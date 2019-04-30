@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block links %}{% endblock %}
+</head>
+<body>
+    {% if not no_header %}
+        <div class="header"></div>
+    {% endif %}
+    <div class="error" id="errorMessage">
+        <div class="error__header">
+            <div class="error__header_close" id="closeErrorMessage"></div>
+            <div class="error__header_text">Ошибка</div>
+        </div>
+        <div class="error__content"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/error_message.js') }}"></script>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

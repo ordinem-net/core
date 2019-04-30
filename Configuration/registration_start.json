@@ -1,0 +1,11 @@
+{
+  "inputs": [
+	{"title": "Ваше имя", "name": "name", "placeholder": "Иванов К.И."},
+	{"title": "Пароль", "name": "password", "type": "password"},
+	{"title": "Ваша почта", "name": "email", "type": "email", "placeholder": "uearemail@mail.com"}
+  ],
+  "roles": [
+	{"title": "Пользователь", "value": "0"},
+	{"title": "Компания", "value": "1"},
+  ]
+}
