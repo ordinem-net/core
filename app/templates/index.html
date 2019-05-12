@@ -1,46 +1,6 @@
-{% extends 'base/card.html' %}
+{% extends 'base/base.html' %}
 
-{% block title %}Registration{% endblock %}
-{% set cardTitle = 'Registration' %}
+{% block title %}Main{% endblock %}
 
-{% set inputs = [
-	{"title": "Ваше имя", "name": "name", "placeholder": "Иванов К.И."},
-	{"title": "Пароль", "name": "password", "type": "password"},
-	{"title": "Ваша почта", "name": "email", "type": "email", "placeholder": "uearemail@mail.com"}
-] %}
-
-{% set select = [
-	{"title": "Пользователь", "value": "0"},
-	{"title": "Компания", "value": "1"},
-] %}
-
-{% block card %}
-	<form action="/todo/register" name="reqister" method = "POST" id="registration">
-		{% for inp in inputs %}
-		<div class="card__enter-data">
-			<input
-				class="card__input"
-				type="{{ inp.type or 'text' }}"
-				name="{{ inp.name }}"
-				placeholder="{{ inp.placeholder }}"
-				required="required"
-				autocomplete="disable"
-			/>
-			<label class="card__label" for="{{ inp.name }}">{{ inp.title }}</label>
-		</div>
-		{% endfor %}
-		<div class="card__enter-data card__enter-data_no-reverse">
-			<label class="card__label" for="role">Зарегистрироваться как</label>
-			<select class="card__select" name="role" id="">
-				{% for role in select %}
-				<option value="{{ role.value }}">{{ role.title }}</option>
-				{% endfor %}
-			</select>
-		</div>
-		<button class="card__bth" id="cardAction">Отправить</button>
-	</form>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/registration.js') }}"></script>
+{% block links %}
 {% endblock %}

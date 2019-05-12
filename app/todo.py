@@ -8,6 +8,14 @@ def todo_register():
     form = request.form
 
     if form.get('role') == '0':
-        return redirect(url_for('register_user'))
+        return redirect(url_for('register'))
 
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
+
+
+@app.route('/todo/login', methods=['GET', 'POST'])
+def todo_login():
+    form = request.form
+    print(form)
+
+    return redirect(url_for('index'))

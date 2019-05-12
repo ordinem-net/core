@@ -3,6 +3,39 @@
 {% block title %}LogIn{% endblock %}
 {% set cardTitle = 'Log in' %}
 
-{% block card %}
+{% set inputs = [
+	{"title": "Ваша почта", "name": "email", "type": "email", "placeholder": "uearemail@mail.com"},
+	{"title": "Пароль", "name": "password", "type": "password", "placeholder": "******"}
+] %}
 
+{% block card %}
+<form action="/todo/login" method="POST" id="login">
+	{% for inp in inputs %}
+		<div class="card__enter-data">
+			<input
+				class="card__input"
+				type="{{ inp.type or 'text' }}"
+				name="{{ inp.name }}"
+				autocomplete="disable"
+				{{ inp.placeholder and "placeholder=" + inp.placeholder }}
+			/>
+			<label class="card__label" for="{{ inp.name }}">{{ inp.title }}</label>
+		</div>
+	{% endfor %}
+	<div class="card__enter-data" id="addKeysBlock" style="border: 1px solid #222">
+		Тут прикрепляем файл
+	</div>
+	<div class="card__checkbox">
+		<input type="radio" name="newKey" id="newKey" value="new_key" />
+		<label for="newKey">Создать новые ключи</label>
+	</div>
+	<button class="card__bth" id="cardAction">Отправить</button>
+	<div class="card__small-link">
+		<a href="{{ url_for('index') }}">На главную</a>
+	</div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}

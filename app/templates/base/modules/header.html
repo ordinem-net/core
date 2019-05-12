@@ -1,0 +1,21 @@
+{% set header_links = [
+    {'name': 'index', 'title': 'Домашняя', 'href': url_for('index')},
+    {'name': 'register', 'title': 'Регистрация', 'href': url_for('register'), 'target': true},
+    {'name': 'login', 'title': 'Вход', 'href': url_for('login')},
+] %}
+
+<header class="header">
+    <div class="header__links">
+        {% for link in header_links %}
+            {% if name == link.name %}
+            	<div class="header__link">{{ link.title }}</div>
+            {% else %}
+            	<a
+            		class="header__link"
+            		href="{{ link.href }}"
+            		{{ link.target and 'target=_blank' }}
+            	>{{ link.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</header>

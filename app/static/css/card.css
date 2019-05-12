@@ -141,3 +141,18 @@
 .card__select:focus {
   border: 1px solid #38F;
 }
+.card__small-link {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.card__small-link a {
+  color: #222;
+}

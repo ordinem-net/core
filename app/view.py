@@ -2,19 +2,19 @@ from app.app import app
 from flask import render_template, redirect, url_for
 
 
-@app.route('/register')
+@app.route('/')
 def index():
-    return render_template('index.html', no_header=True)
+    return render_template('index.html', name='index')
+
+
+@app.route('/register')
+def register(error={}):
+    return render_template('register.html', name='register', no_header=True, error=error)
 
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
-
-
-@app.route('/register/user')
-def register_user():
-    return render_template('register_user.html')
+    return render_template('login.html', name='login', no_header=True)
 
 
 @app.errorhandler(404)
