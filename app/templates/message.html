@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Meesage{% endblock %}
+
+{% block links %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/message.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="message">
+		{% if message.title %}
+		<h2 class="message__title">{{ message.title }}</h2>
+		{% endif %}
+		<div class="message__content">
+			{{ message.body }}
+		</div>
+	</div>
+{% endblock %}

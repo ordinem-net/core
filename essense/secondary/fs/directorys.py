@@ -42,3 +42,12 @@ class Directory (object):
                 os.unlink(os.path.join(root, file))
             for directory in dirs:
                 shutil.rmtree(os.path.join(root, directory))
+
+    @staticmethod
+    def is_dir(path):
+        """
+        Метод проверки существования папки
+        :param path: <str> путь к папке
+        :return: <bool> Существование папки
+        """
+        return os.path.isdir(path)

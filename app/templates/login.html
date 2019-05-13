@@ -8,8 +8,13 @@
 	{"title": "Пароль", "name": "password", "type": "password", "placeholder": "******"}
 ] %}
 
+{% set blocks_key = [
+	{'name': 'publicKey', 'title': 'Публичный ключ'},
+	{'name': 'privateKey', 'title': 'Приватный ключ'}
+] %}
+
 {% block card %}
-<form action="/todo/login" method="POST" id="login">
+<form action="/todo/login" method="POST" id="login" enctype="multipart/form-data">
 	{% for inp in inputs %}
 		<div class="card__enter-data">
 			<input
@@ -22,14 +27,23 @@
 			<label class="card__label" for="{{ inp.name }}">{{ inp.title }}</label>
 		</div>
 	{% endfor %}
-	<div class="card__enter-data" id="addKeysBlock" style="border: 1px solid #222">
-		Тут прикрепляем файл
+
+	<p class="card__label">Ключи</p>
+	<div id="addKeysBlock">
+		<div class="card__flex-block js-key-block">
+		{% for key in blocks_key %}
+			<div class="card__flex_element">
+				<label class="card__label card__label_small" for="{{key.name}}">{{key.title}}</label>
+				<input type="file" name="{{key.name}}" multiple/>
+			</div>
+		{% endfor %}
+		</div>
 	</div>
 	<div class="card__checkbox">
-		<input type="radio" name="newKey" id="newKey" value="new_key" />
+		<input type="checkbox" name="newKey" id="newKey" value="new_key" />
 		<label for="newKey">Создать новые ключи</label>
 	</div>
-	<button class="card__bth" id="cardAction">Отправить</button>
+	<input type="submit" class="card__bth" id="cardAction" value="Отправить" />
 	<div class="card__small-link">
 		<a href="{{ url_for('index') }}">На главную</a>
 	</div>

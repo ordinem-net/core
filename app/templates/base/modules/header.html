@@ -1,21 +1,34 @@
 {% set header_links = [
     {'name': 'index', 'title': 'Домашняя', 'href': url_for('index')},
     {'name': 'register', 'title': 'Регистрация', 'href': url_for('register'), 'target': true},
-    {'name': 'login', 'title': 'Вход', 'href': url_for('login')},
+    {'name': 'login', 'title': 'Вход', 'href': url_for('login'), 'notAction': Mage().action_user()}
 ] %}
 
 <header class="header">
     <div class="header__links">
         {% for link in header_links %}
-            {% if name == link.name %}
-            	<div class="header__link">{{ link.title }}</div>
-            {% else %}
-            	<a
-            		class="header__link"
-            		href="{{ link.href }}"
-            		{{ link.target and 'target=_blank' }}
-            	>{{ link.title }}</a>
+            {% if not link.notAction %}
+                {% if name == link.name %}
+            	   <div class="header__link">{{ link.title }}</div>
+                {% else %}
+            	   <a
+            		  class="header__link"
+            		  href="{{ link.href }}"
+            		  {{ link.target and 'target=_blank' }}
+            	   >{{ link.title }}</a>
+                {% endif %}
             {% endif %}
         {% endfor %}
+
+        {% if Mage().action_user() %}
+            {% if name == 'admin' %}
+                <div class="header__link header__link_admin">Админка</div>
+            {% else %}
+                <a
+                    class="header__link header__link_admin"
+                    href="{{ url_for('admin') }}"
+                >Админка</a>
+            {% endif %}
+        {% endif %}
     </div>
 </header>

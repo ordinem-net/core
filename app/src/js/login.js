@@ -1,10 +1,9 @@
-'use strict';
+;'use strict';
 
 let newKey = document.querySelector('#newKey');
 let form = document.querySelector('#login');
 let action = document.querySelector('#cardAction');
-
-console.log(form);
+let block_keys = document.querySelector('.js-key-block');
 
 newKey.addEventListener('click', (e) => {
 	if (newKey.checked) {
@@ -12,7 +11,12 @@ newKey.addEventListener('click', (e) => {
 
 		if (!result) {
 			e.preventDefault();
+			return '';
 		}
+
+		block_keys.parentNode.removeChild(block_keys);
+	} else {
+		document.querySelector('#addKeysBlock').appendChild(block_keys);
 	}
 });
 
@@ -22,8 +26,11 @@ action.addEventListener('click', (e) => {
 
 	for (let i = 0; i < inputs.length; i++) {
 		if (!inputs[i].value) {
-			not_check = true
-			inputs[i].classList.add('card__input_not-value');
+			not_check = true;
+
+			if (inputs[i].type != 'file') {
+				inputs[i].classList.add('card__input_not-value');
+			}
 		}
 	}
 
