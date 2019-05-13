@@ -22,12 +22,24 @@
 
         {% if Mage().action_user() %}
             {% if name == 'admin' %}
-                <div class="header__link header__link_admin">Админка</div>
+                <div class="header__link header__link_admin">
+                    <img
+                        src="{{url_for('static', filename='img/user.svg')}}"
+                        alt="Личный кабинет"
+                        class="header__admin_image"
+                    />
+                </div>
             {% else %}
                 <a
                     class="header__link header__link_admin"
                     href="{{ url_for('admin') }}"
-                >Админка</a>
+                >
+                    <img
+                        src="{{url_for('static', filename='img/user.svg')}}"
+                        alt="Личный кабинет"
+                        class="header__admin_image"
+                    />
+                </a>
             {% endif %}
         {% endif %}
     </div>
