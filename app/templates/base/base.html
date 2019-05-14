@@ -21,6 +21,10 @@
         {% block content %}{% endblock %}
     </div>
 
+    {% if sockets %}
+        {% include('base/modules/socket.html') %}
+    {% endif %}
+
     {% block scripts %}{% endblock %}
 </body>
 </html>

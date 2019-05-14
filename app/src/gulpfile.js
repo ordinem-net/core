@@ -42,7 +42,12 @@ gulp.task('js', () => {
     return gulp.src(`${SRC}/js/**/*.js`)
         .pipe(plumber())
         .pipe(babel({
-            presets: ['@babel/preset-env']
+            presets: [
+                '@babel/preset-env'
+            ],
+            plugins: [
+                ["@babel/plugin-proposal-class-properties", { "loose": true }]
+            ]
         }))
         .pipe(gulpif(!IsDevelopment, uglify()))
         .pipe(gulp.dest(`${DIST}/js`));

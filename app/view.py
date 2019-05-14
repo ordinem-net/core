@@ -5,7 +5,7 @@ from app.mage import Mage
 
 @app.route('/')
 def index():
-    return render_template('index.html', name='index')
+    return render_template('index.html', name='index', sockets=True)
 
 
 @app.route('/register')
