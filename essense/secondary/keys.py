@@ -9,7 +9,6 @@ class Keys:
         Метод для генерации ключей.
         Генерирует открытый и закрытый ключ и записывает их в файлы public_key.txt и private_key.txt
         """
-        # Если будут ошибки в дальнейшем, то сменить на 512.
         (__pubkey, __privkey) = rsa.newkeys(512)
 
         __pubkey_file = open('public_key.txt', 'w')
