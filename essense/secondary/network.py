@@ -59,7 +59,7 @@ class Network(object):
         except OSError:
             return False
 
-        sock.send(message)
+        sock.send(str(message).encode())
         sock.close()
 
         return True

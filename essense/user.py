@@ -13,6 +13,7 @@ class User(ActionUser):
     def __init__(self):
         super().__init__()
 
+        self.server()
         self.__active()
 
     @thread
