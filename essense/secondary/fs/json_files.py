@@ -81,3 +81,14 @@ class JsonFiles(Files):
             return data[path[0]] if data.get(path[0]) else {}
         else:
             return self.get_prop(data[path[0]], path[1])
+
+    @staticmethod
+    def get_json_in_str(str_json):
+        """
+        Метод получения json объекта из строкового представления
+        :param str_json: <str> строковаое представление json файла
+        :return: <obj json> json объект
+        """
+        tmp = str_json.replace('\'', '\"')
+
+        return json.loads(tmp)

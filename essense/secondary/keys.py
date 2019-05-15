@@ -1,22 +1,29 @@
 import rsa
 import base64
 from const import Const
+from essense.secondary.fs.files import Files
 
 
 class Keys:
-    @staticmethod
-    def generate_keys():
+    __files__ = Files()
+
+    def generate_keys(self):
         """
         Метод для генерации ключей.
         Генерирует открытый и закрытый ключ и записывает их в файлы public_key.txt и private_key.txt
         """
         (__pubkey, __privkey) = rsa.newkeys(512)
 
+        if not self.__files__.is_dir(Const.PATH_TO_KEYS):
+            self.__files__.create_directory(Const.PATH_TO_KEYS)
+
         __pubkey_file = open(Const.PATH_TO_KEY_PUBLIC, 'w')
         __privkey_file = open(Const.PATH_TO_KEY_PRIVATE, 'w')
 
         __pubkey_file.write(__pubkey.save_pkcs1().decode('ascii'))
         __privkey_file.write(__privkey.save_pkcs1().decode('ascii'))
+
+        return [__pubkey, __privkey]
 
     @staticmethod
     def pubkey_to_address(pubkey):
@@ -39,12 +46,15 @@ class Keys:
 
         return pubkey
 
-    @staticmethod
-    def get_keys():
+    def get_keys(self):
         """
         Метод считывания ключей с базы.
         Возвращает массив, нулевой элемент - публичный ключ, первый элемент - приватный ключ.
         """
+        if not self.__files__.is_file(Const.PATH_TO_KEY_PUBLIC) or \
+                not self.__files__.is_file(Const.PATH_TO_KEY_PRIVATE):
+            return ['', '']
+
         __pubkey_file = open(Const.PATH_TO_KEY_PUBLIC, 'r')
         __privkey_file = open(Const.PATH_TO_KEY_PRIVATE, 'r')
 
@@ -77,5 +87,5 @@ class Keys:
 
         pubkey = self.address_to_pubkey(address)
 
-        if ((rsa.verify(__message, signature, pubkey)) == 'SHA-1'):
+        if (rsa.verify(__message, signature, pubkey)) == 'SHA-1':
             return True

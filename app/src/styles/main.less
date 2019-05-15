@@ -1,9 +1,9 @@
+@import (less) "_variable";
+
 * {
 	margin: 0;
 	padding: 0;
 }
-
-@heder_heigth: 60px;
 
 .header {
 	width: 100vw;
@@ -12,6 +12,7 @@
 	position: fixed;
 	z-index: 5;
 	padding: 10px 0;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.12);
 
 	&__links {
 		float: right;
@@ -30,7 +31,7 @@
 		margin-right: 20px;
 		min-width: 130px;
 		border-radius: 20px;
-		border: 2px solid #222;
+		border: .5px solid rgba(66, 86, 219, 1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -42,12 +43,14 @@
 			border-radius: 0;
 			min-width: 0;
 			width: min-content;
+			background-color: #fff!important;
 		}
 	}
 
 	a&__link {
 		text-decoration: none;
-		color: #000;
+		background-color: #57a4ff;
+		color: #fff;
 		transition: .5s;
 
 		&:hover {
@@ -56,7 +59,9 @@
 	}
 
 	div&__link {
-		background-color: #C9C9C9FF;
+		background-color: @color_blue;
+		color: #fff;
+		cursor: default;
 	}
 
 	&__admin_image {

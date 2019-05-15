@@ -1,3 +1,24 @@
 {% extends 'base/base.html' %}
 
 {% block title %}Admin{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="resume">
+	<div class="column column_small">
+		<div class="resume__image column_small-block">
+			<div class="resume__image-i">Тут фотка</div>
+			<button class="resume__link">Изменить</button>
+		</div>
+	</div>
+	<div class="column colunt_medium">
+		<div class="resume__main-info">
+			<h1 class="resume__title">Личная информация</h1>
+			<div class="resume__main-info-i"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

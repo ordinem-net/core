@@ -1,5 +1,4 @@
-@blue: #38F;
-@red: #b00;
+@import (less) "_variable";
 
 .content {
 	display: flex;
@@ -20,7 +19,7 @@
 		text-align: center;
 		line-height: 60px;
 		font-family: Roboto, sans-serif;
-		background-color: @blue;
+		background-color: @color_blue;
 		color: #fff;
 		font-size: 24px;
 		letter-spacing: 5px;
@@ -74,15 +73,15 @@
 		&:required~label::after {
 			content: '*';
 			margin-left: 3px;
-			color: #b00;
+			color: @color_red;
 		}
 
 		&:valid {
-			border-bottom: 2px solid @blue;
+			border-bottom: 2px solid @color_blue;
 		}
 
 		&_not-value {
-			border-bottom: 2px solid @red;
+			border-bottom: 2px solid @color_red;
 		}
 	}
 
@@ -92,7 +91,7 @@
 		margin: 60px auto 20px;
 		width: 200px;
 		line-height: 50px;
-		background-color: @blue;
+		background-color: @color_blue;
 		border: none;
 		color: #fff;
 		font-size: 20px;
@@ -118,7 +117,7 @@
 		border-radius: 5px;
 
 		&:focus {
-			border: 1px solid @blue;
+			border: 1px solid @color_blue;
 		}
 	}
 

@@ -1,6 +1,8 @@
 from app.app import app
-from flask import render_template, redirect, url_for, Markup
+from flask import render_template, redirect, url_for, Markup, request
 from app.mage import Mage
+from const import Const
+import os
 
 
 @app.route('/')
@@ -18,14 +20,31 @@ def login():
     return render_template('login.html', name='login', no_header=True)
 
 
-@app.route('/message')
-def message(mes={}):
+@app.route('/message', methods=['POST', 'GET'])
+def message():
+    type_message = request.args.get('type')
+
+    if not type_message:
+        return redirect(url_for('index'))
+
+    address = 'sadasdas'
+    mes = ''
+
+    if type_message == 'registration':
+        mes = {
+        "title": "Спасибо за регистрацию!",
+        "body": Markup('''
+            <p class="message__text">Мы рад видеть нового пользователя нашего приложения! (Придумай что-то нормальное)</p>
+            <p class="message__text">Ваш адрес в сети: {0} </p>
+            <p class="message__text">Ваши ключи находятся: {1} </p>
+            '''.format(address,
+                       os.path.join(os.getcwd(), Const.PATH_TO_KEYS)
+                       ))
+        }
+
     if not mes:
-        pass
-        # return redirect(url_for('index'))
-    mes["title"] = 'Спасибо за регистрацию!'
-    mes["body"] = Markup('<p class="message__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem laudantium, error recusandae quae quibusdam sunt aperiam, ullam modi alias corporis facere autem sed temporibus itaque perspiciatis ab eum provident eius.</p>')
-    
+        return redirect(url_for('index'))
+
     return render_template('message.html', name='message', message=mes)
 
 

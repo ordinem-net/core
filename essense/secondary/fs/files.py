@@ -16,14 +16,20 @@ class Files(Directory):
         :param path_to_file: Путь к файлу
         :return:
         """
-        path = os.path.dirname(path_to_file)
-
-        if os.path.exists(path):
+        if self.is_dir_for_file(path_to_file):
             if not os.path.exists(path_to_file):
                 open(path_to_file, 'w').close()
         else:
-            self.create_directory(path)
+            self.create_directory(self.get_dir_for_file(path_to_file))
             open(path_to_file, 'w').close()
+
+    def is_dir_for_file(self, path_to_file):
+        """
+        Метод проверки существования директории для данного файла
+        :param path_to_file: <str> путь к файлу
+        :return: <bool> Существование директории
+        """
+        return self.is_dir(self.get_dir_for_file(path_to_file))
 
     @staticmethod
     def clear_file(path_to_file):
@@ -47,3 +53,13 @@ class Files(Directory):
     def is_file(path_to_file=''):
         """Метод проверки файла"""
         return os.path.isfile(path_to_file)
+
+    @staticmethod
+    def get_dir_for_file(path_to_file):
+        """
+        Метод получения папки по пути к файлу
+        :param path_to_file: <str> путь к файлу
+        :return:  <str> путь к папке
+        """
+        return os.path.dirname(path_to_file)
+

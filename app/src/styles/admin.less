@@ -1,0 +1,78 @@
+@import (less) "_variable";
+
+.content {
+	padding-top: @heder_heigth + 40px;
+}
+
+.resume {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	width: 1200px;
+	max-width: 100%;
+	margin: auto;
+
+	&__image {
+		margin: 20px auto;
+		height: 300px;
+		border: 1px solid #222;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: column;
+
+		&-i {
+			margin: auto;
+			width: 60%;
+			height: 200px;
+			border: 1px solid #222;
+		}
+	}
+
+	&__link {
+		height: 45px;
+		min-width: 130px;
+		border-radius: 20px;
+		border: .5px solid rgba(66, 86, 219, 1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+		font-family: Roboto, sans-serif;
+		background-color: #57a4ff;
+		color: #fff;
+		cursor: pointer;
+		transition: .5s;
+
+		&:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.12);
+		}
+	}
+
+	&__title {
+		text-align: center;
+		font-weight: bold;
+		font-family: Roboto, sans-serif;
+		color: #4a4a4a;
+	}
+}
+
+.column {
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.column_small {
+	width: 27%;
+	border: 1px solid #222;
+
+	&-block {
+		margin-bottom: 10px;
+	}
+}
+
+.colunt_medium {
+	width: 72%;
+	height: 500px;
+	border: 1px solid #222;
+}

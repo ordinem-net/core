@@ -4,8 +4,7 @@
 {% set cardTitle = 'Log in' %}
 
 {% set inputs = [
-	{"title": "Ваша почта", "name": "email", "type": "email", "placeholder": "uearemail@mail.com"},
-	{"title": "Пароль", "name": "password", "type": "password", "placeholder": "******"}
+	{"title": "Ваша адресс", "name": "address", "placeholder": "********"}
 ] %}
 
 {% set blocks_key = [
@@ -38,10 +37,6 @@
 			</div>
 		{% endfor %}
 		</div>
-	</div>
-	<div class="card__checkbox">
-		<input type="checkbox" name="newKey" id="newKey" value="new_key" />
-		<label for="newKey">Создать новые ключи</label>
 	</div>
 	<input type="submit" class="card__bth" id="cardAction" value="Отправить" />
 	<div class="card__small-link">
