@@ -23,6 +23,22 @@ class Files(Directory):
             self.create_directory(self.get_dir_for_file(path_to_file))
             open(path_to_file, 'w').close()
 
+    def write_to_data(self, path_to_file='', data=''):
+        """
+        Метод записи текста в файл
+        :param path_to_file: <str> Путь к файлу
+        :param data: <str> Текст, который нужно записать в файл
+        :return: <bool> Успешность апперации
+        """
+        if not data:
+            return False
+
+        if not self.is_file(path_to_file):
+            self.create_file(path_to_file)
+
+        with open(path_to_file, 'w') as file:
+            file.write(data)
+
     def is_dir_for_file(self, path_to_file):
         """
         Метод проверки существования директории для данного файла

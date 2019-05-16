@@ -10,16 +10,21 @@ class User(ActionUser):
     __network__ = Network()
     __json__ = JsonFiles()
 
-    def __init__(self):
+    def __init__(self, action_server=False):
         super().__init__()
 
-        self.server()
-        self.__active()
+        if action_server:
+            self.server()
+            self.__active()
 
     @thread
     def server(self):
         """Запуск сервера на прослушку сети"""
         self.__network__.server(Const.PORT_USER, self.__get_message, Const.LISTEN_USER)
+
+    def get_user_info(self):
+        """Метод получения информации о данном пользователе"""
+        return self.__json__.get_json(Const.PATH_TO_DATA)
 
     def __get_message(self, message):
         """Метод обработки всех пришедших сообщений"""
