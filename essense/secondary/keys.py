@@ -1,6 +1,6 @@
 import rsa
 import base64
-from const import Const
+from const import const
 from essense.secondary.fs.files import Files
 
 
@@ -14,11 +14,11 @@ class Keys:
         """
         (__pubkey, __privkey) = rsa.newkeys(512)
 
-        if not self.__files__.is_dir(Const.PATH_TO_KEYS):
-            self.__files__.create_directory(Const.PATH_TO_KEYS)
+        if not self.__files__.is_dir(const.PATH_TO_KEYS):
+            self.__files__.create_directory(const.PATH_TO_KEYS)
 
-        __pubkey_file = open(Const.PATH_TO_KEY_PUBLIC, 'w')
-        __privkey_file = open(Const.PATH_TO_KEY_PRIVATE, 'w')
+        __pubkey_file = open(const.PATH_TO_KEY_PUBLIC, 'w')
+        __privkey_file = open(const.PATH_TO_KEY_PRIVATE, 'w')
 
         __pubkey_file.write(__pubkey.save_pkcs1().decode('ascii'))
         __privkey_file.write(__privkey.save_pkcs1().decode('ascii'))
@@ -46,17 +46,20 @@ class Keys:
 
         return pubkey
 
-    def get_keys(self):
+    def get_keys(self, path_to_public_key=const.PATH_TO_KEY_PUBLIC, path_to_private_key=const.PATH_TO_KEY_PRIVATE):
         """
         Метод считывания ключей с базы.
         Возвращает массив, нулевой элемент - публичный ключ, первый элемент - приватный ключ.
+        :param path_to_public_key: <str> Путь к публичному ключу
+        :param path_to_private_key: <str> Путь к приватному ключу
+        :return: <arr> кортеж из ключей
         """
-        if not self.__files__.is_file(Const.PATH_TO_KEY_PUBLIC) or \
-                not self.__files__.is_file(Const.PATH_TO_KEY_PRIVATE):
+        if not self.__files__.is_file(path_to_public_key) or \
+                not self.__files__.is_file(path_to_private_key):
             return ['', '']
 
-        __pubkey_file = open(Const.PATH_TO_KEY_PUBLIC, 'r')
-        __privkey_file = open(Const.PATH_TO_KEY_PRIVATE, 'r')
+        __pubkey_file = open(path_to_public_key, 'r')
+        __privkey_file = open(path_to_private_key, 'r')
 
         keys = [__pubkey_file.read(), __privkey_file.read()]
 

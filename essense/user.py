@@ -4,6 +4,7 @@ from essense.secondary.decorators import *
 from essense.action.user import ActionUser
 from const import const
 import json
+import os
 
 
 class User(ActionUser):
@@ -22,9 +23,27 @@ class User(ActionUser):
         """Запуск сервера на прослушку сети"""
         self.__network__.server(const.PORT_USER, self.__get_message, const.LISTEN_USER)
 
-    def get_user_info(self):
+    def get_this_user_info(self):
         """Метод получения информации о данном пользователе"""
         return self.__json__.get_json(const.PATH_TO_DATA)
+
+    def get_info_user(self, address=''):
+        """
+        Метод получения информации о пользователе. Если информация не была получена ранее,
+        то она ищется в бокчейне
+        :param address: <str> Адрес пользователя, о котором мы ищем информацию
+        :return: <obj json> Вся известная информация о пользователе
+        """
+        if not address:
+            return {}
+
+        path_user = os.path.join(const.PATH_TO_BCH_USERS, address)
+
+        print(path_user)
+        print(self.__json__.is_dir(path_user))
+
+        if self.__json__.is_dir(path_user):
+            return self.__json__.get_json(os.path.join(path_user, const.PATH_TO_USER_INFO))
 
     def __get_message(self, message):
         """Метод обработки всех пришедших сообщений"""

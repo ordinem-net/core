@@ -29,7 +29,7 @@ def login():
 @app.route('/message', methods=['POST', 'GET'])
 def message():
     type_message = request.args.get('type')
-    user_data = User().get_user_info()
+    user_data = User().get_this_user_info()
 
     if not type_message:
         return redirect(url_for('index'))

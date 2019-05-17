@@ -31,6 +31,13 @@ class Const(object):
     """Файлы сети"""
     PATH_TO_BCH = os.path.join(PATH_TO_FILES, 'blockchain')
 
+    PATH_TO_BCH_USERS = os.path.join(PATH_TO_BCH, 'users')  # Загруженная ранее информация о пользователях
+
+    """Файлы пользователя"""
+    PATH_TO_USER_INFO = 'data.json'
+    PATH_TO_USER_PART_FILES = 'files'  # Все куски, для этого пользователя, полученные на хранение
+    PATH_TO_USER_BUILD_FILES = 'build_files'  # Ранее собранные целые файлы
+
     """
     -------------------------------------
                Константы соединения

@@ -9,14 +9,20 @@ class DragAndDrop {
 	}
 
 	constructor(name, message, elem) {
-		this.state.el = elem;
-		this.state.form = this.#createForm(name, message);
-
-		this.state.message = message;
+		this.init(name, message, elem);
 
 		this.state.el.appendChild(this.state.form);
 
 		this.#createEvents();
+	}
+
+	init = (name, message, elem) => {
+		this.state.el = elem ? typeof elem == 'object' ? elem : 
+			typeof elem == 'string' ? document.querySelector(elem) : undefined : undefined;
+
+		this.state.form = this.#createForm(name, message);
+
+		this.state.message = message;
 	}
 
 	#createForm = (name, message) => {

@@ -3,6 +3,7 @@ from app.view import *
 from flask import request, redirect, url_for
 from essense.secondary.fs.json_files import JsonFiles
 from essense.secondary.keys import Keys
+from essense.user import User
 import os
 
 
@@ -35,7 +36,22 @@ def todo_login():
     private_key.save(os.path.join(const.PATH_TO_TMP_LOGIN, 'private_key.txt'))
     address.save(os.path.join(const.PATH_TO_TMP_LOGIN, 'address.txt'))
 
-    return redirect(url_for('index'))
+    keys = Keys().get_keys(os.path.join(const.PATH_TO_TMP_LOGIN, 'public_key.txt'),
+                           os.path.join(const.PATH_TO_TMP_LOGIN, 'private_key.txt'))
+
+    address = JsonFiles().get_text(os.path.join(const.PATH_TO_TMP_LOGIN, 'address.txt'))
+
+    if not address == Keys().pubkey_to_address(keys[0]):
+        return redirect(url_for('login', error='Данный публичный ключ не соответсвует адресу!'))
+
+    data = User().get_info_user(address)
+
+    if data:
+        get_users(address, data)
+    else:
+        return redirect(url_for('login', error='Такой пользователь не найден!'))
+
+    return redirect(url_for('admin'))
 
 
 def get_users(address, data):

@@ -16,7 +16,7 @@
 {% block card %}
 <form action="/todo/login" method="POST" id="login" enctype="multipart/form-data">
 	<div class="card__enter-data">
-		<div id="drAndDrAdress"></div>
+		<div id="drAndDradress"></div>
 		<p class="card__label">Ваш адрес</p>	
 	</div>
 
@@ -42,10 +42,10 @@
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <script src="{{ url_for('static', filename='js/dragAndDrop.js') }}"></script>
 <script>
-	new DragAndDrop('address', 'Загрузите ваш адресс', document.querySelector('#drAndDrAdress'));
+	new DragAndDrop('address', 'Загрузите ваш адресс', '#drAndDradress');
 
 	{% for key in blocks_key %}
-	new DragAndDrop('{{key.name}}', 'Загрузите ключ', document.querySelector('#drAndDr{{key.name}}'));
+	new DragAndDrop('{{key.name}}', 'Загрузите ключ', '#drAndDr{{key.name}}');
 	{% endfor %}
 </script>
 {% endblock %}

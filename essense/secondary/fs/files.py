@@ -13,7 +13,7 @@ class Files(Directory):
         Метод создает при необходимости все необходимые директории
         Если файл уже существует - он не пересоздается
 
-        :param path_to_file: Путь к файлу
+        :param path_to_file: <str> Путь к файлу
         :return:
         """
         if self.is_dir_for_file(path_to_file):
@@ -22,6 +22,18 @@ class Files(Directory):
         else:
             self.create_directory(self.get_dir_for_file(path_to_file))
             open(path_to_file, 'w').close()
+
+    def get_text(self, path_to_file=''):
+        """
+        Метод получения текса из файла
+        :param path_to_file: <str> Путь к файлу
+        :return: <str> Что находится в файле
+        """
+        if not self.is_file(path_to_file):
+            return ''
+
+        file = open(path_to_file, 'r')
+        return file.read()
 
     def write_to_data(self, path_to_file='', data=''):
         """
