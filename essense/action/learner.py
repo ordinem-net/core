@@ -1,5 +1,5 @@
 from essense.secondary.fs.json_files import JsonFiles
-from const import Const
+from const import const
 
 
 class ActionLearner(object):

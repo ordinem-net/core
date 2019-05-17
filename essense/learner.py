@@ -2,7 +2,7 @@ from essense.secondary.fs.json_files import JsonFiles
 from essense.action.learner import ActionLearner
 from essense.secondary.network import Network
 from essense.secondary.decorators import *
-from const import Const
+from const import const
 import json
 
 
@@ -40,13 +40,13 @@ class Learner(ActionLearner):
     @thread
     def __server(self):
         """Запуск сервера на прослушку сети"""
-        self.__network__.server(Const.PORT_LEARNER, self.__get_message, Const.LISTEN_LEARNER)
+        self.__network__.server(const.PORT_LEARNER, self.__get_message, const.LISTEN_LEARNER)
 
     @pause(__PAUSE_CHECK_USERS__)
     @thread
     def __check_network(self):
-        users = self.__json__.get_json(Const.PATH_TO_LIST_USERS)
-        data = self.__json__.get_json(Const.PATH_TO_DATA)
+        users = self.__json__.get_json(const.PATH_TO_LIST_USERS)
+        data = self.__json__.get_json(const.PATH_TO_DATA)
 
         if not users:
             return
@@ -61,7 +61,7 @@ class Learner(ActionLearner):
 
         for id_user, data_user in users.items():
             message = self.__network__.create_message(id_learner, "lerner_check-active", {})
-            success = self.__network__.send(data_user["ip"], Const.PORT_USER, message)
+            success = self.__network__.send(data_user["ip"], const.PORT_USER, message)
 
             if success:
                 active_users[id_user] = data_user
@@ -82,7 +82,7 @@ class Learner(ActionLearner):
         :return: <obj> json объект, в котором указаны изменния активности
         """
         change = {"action": [], "dis_active": []}
-        users = self.__json__.get_json(Const.PATH_TO_LIST_USERS_ACTION)
+        users = self.__json__.get_json(const.PATH_TO_LIST_USERS_ACTION)
 
         for id_user, data in action_users.items():
             if not users.get(id_user):
@@ -95,7 +95,7 @@ class Learner(ActionLearner):
                 del users[id_user]
 
         if change["action"] or change["dis_active"]:
-            self.__json__.set_json_in_file(Const.PATH_TO_TMP_USERS, action_users)
+            self.__json__.set_json_in_file(const.PATH_TO_TMP_USERS, action_users)
 
         return change
 
@@ -105,5 +105,5 @@ class Learner(ActionLearner):
 
     def __clear_start_files(self):
         """Очистка файлов и дерикторий, оставшихся после последнего запуска"""
-        self.__json__.delete_file(Const.PATH_TO_LIST_USERS_ACTION)
-        self.__json__.clear_directory(Const.PATH_TO_TMP)
+        self.__json__.delete_file(const.PATH_TO_LIST_USERS_ACTION)
+        self.__json__.clear_directory(const.PATH_TO_TMP)

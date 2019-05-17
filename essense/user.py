@@ -2,7 +2,7 @@ from essense.secondary.network import Network
 from essense.secondary.fs.json_files import JsonFiles
 from essense.secondary.decorators import *
 from essense.action.user import ActionUser
-from const import Const
+from const import const
 import json
 
 
@@ -20,11 +20,11 @@ class User(ActionUser):
     @thread
     def server(self):
         """Запуск сервера на прослушку сети"""
-        self.__network__.server(Const.PORT_USER, self.__get_message, Const.LISTEN_USER)
+        self.__network__.server(const.PORT_USER, self.__get_message, const.LISTEN_USER)
 
     def get_user_info(self):
         """Метод получения информации о данном пользователе"""
-        return self.__json__.get_json(Const.PATH_TO_DATA)
+        return self.__json__.get_json(const.PATH_TO_DATA)
 
     def __get_message(self, message):
         """Метод обработки всех пришедших сообщений"""
@@ -35,8 +35,8 @@ class User(ActionUser):
         Метод, который сообщает сети о том, что он в сети
         :return: null
         """
-        learners = self.__json__.get_json(Const.PATH_TO_LIST_LEARNERS)
-        data = self.__json__.get_json(Const.PATH_TO_DATA)
+        learners = self.__json__.get_json(const.PATH_TO_LIST_LEARNERS)
+        data = self.__json__.get_json(const.PATH_TO_DATA)
         id_user = ''
 
         if data:
@@ -46,4 +46,4 @@ class User(ActionUser):
         message = self.__network__.create_message(id_user, 'user_enter', {})
 
         for learner_id, learner_data in learners.items():
-            self.__network__.send(learner_data["ip"], Const.PORT_LEARNER, message)
+            self.__network__.send(learner_data["ip"], const.PORT_LEARNER, message)

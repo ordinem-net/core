@@ -9,7 +9,10 @@ action.addEventListener('click', (e) => {
 	let not_check = false;
 
 	for (let i = 0; i < inputs.length; i++) {
-		if (!inputs[i].value) {
+		console.log(inputs[i]);
+		console.dir(inputs[i]);
+		console.log('aaaaaaaa');
+		if (inputs[i].type == 'file' && !inputs[i].files) {
 			not_check = true;
 
 			if (inputs[i].type != 'file') {

@@ -1,6 +1,6 @@
 from essense.secondary.fs.json_files import JsonFiles
 from essense.secondary.network import Network
-from const import Const
+from const import const
 
 
 class ActionUser(object):
@@ -28,7 +28,7 @@ class ActionUser(object):
         :param role: <str> Базовая роль пользователя (learner or user)
         :return: <bool> Успешность отправки ответа
         """
-        data = self.__json__.get_json(Const.PATH_TO_DATA)
+        data = self.__json__.get_json(const.PATH_TO_DATA)
         id_user = ''
 
         if data:
@@ -38,13 +38,13 @@ class ActionUser(object):
         data_user = {}
 
         if role == 'learner':
-            learners = self.__json__.get_json(Const.PATH_TO_LIST_LEARNERS)
+            learners = self.__json__.get_json(const.PATH_TO_LIST_LEARNERS)
             data_user = learners[id_answer]
 
         message = self.__network__.create_message(id_user, 'user_check-action', {})
         success = self.__network__.send(
             data_user["ip"],
-            Const.PORT_LEARNER if role == 'learner' else Const.PORT_USER,
+            const.PORT_LEARNER if role == 'learner' else const.PORT_USER,
             message
         )
 

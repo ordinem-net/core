@@ -1,0 +1,54 @@
+@import (less) "_variable";
+
+.drag-and-drop {
+	&-form {
+		width: 100%;
+		height: 80px;
+		background-color: #BCF;
+		border-radius: 20px;
+		border: 2px dashed transparent;
+		transition: .5s;
+	}
+
+	&__highlight,
+	&-form:hover:not(&__action) {
+		border: 2px dashed #222;
+		background-color: @color_blue;
+		box-shadow: 0 7px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
+	} 
+
+	&__action {
+		border: 2px dashed #222;
+		background-color: #fff;
+	}
+
+	&__highlight &__label,
+	&-form:hover:not(&__action) &__label {
+		color: #fff;
+	}
+
+	&__action &__label {
+		color: #22DC75FF;
+		cursor: default;
+	}
+
+	&__label {
+		width: 100%;
+		height: 100%;
+		font-size: 18px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #66D;
+		font-weight: bold;
+		cursor: pointer;
+		box-sizing: border-box;
+		padding: 5px;
+		transition: .5s;
+	}
+
+	&__remove &__label {
+		color: @color_red;
+		cursor: pointer;
+	}
+}
