@@ -21,7 +21,7 @@ def login():
     error = request.args.get('error')
 
     if Mage().action_user():
-        return redirect(url_for('index'))
+        return redirect(url_for('admin'))
     
     return render_template('login.html', name='login', no_header=True, error=error)
 
@@ -64,10 +64,12 @@ def message():
 
 @app.route('/admin')
 def admin():
-    if not Mage().action_user():
+    data = User().get_this_user_info()
+
+    if not Mage().action_user() or not data or not data["info"]:
         return redirect(url_for('login'))
 
-    return render_template('admin.html', name='admin')
+    return render_template('admin.html', name='admin', data=data['info'])
 
 
 @app.errorhandler(404)

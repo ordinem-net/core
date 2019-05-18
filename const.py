@@ -32,6 +32,7 @@ class Const(object):
     PATH_TO_BCH = os.path.join(PATH_TO_FILES, 'blockchain')
 
     PATH_TO_BCH_USERS = os.path.join(PATH_TO_BCH, 'users')  # Загруженная ранее информация о пользователях
+    PATH_TO_BCH_USERS_MAP = os.path.join(PATH_TO_BCH_USERS, 'map.json')  # карта директорий для конкретных адресов
 
     """Файлы пользователя"""
     PATH_TO_USER_INFO = 'data.json'

@@ -7,7 +7,7 @@ class Socket {
 	}
 
 	constructor() {
-		this.state.connect = io.connect(`http://${document.domain}:${location.port}/test`);
+		this.state.connect = io.connect(`http://${document.domain}:${location.port}`);
 
 		this.state.connect.on('connect', () => {
 			this.state.action = true;
@@ -32,5 +32,9 @@ class Socket {
 		connect.on('message', data => {
 			console.log(data);
 		});
+
+		connect.on('change header', data => {
+			console.log(data);
+		})
 	}
 }

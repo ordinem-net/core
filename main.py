@@ -5,6 +5,7 @@ from app.todo import *
 from app.sockets import *
 from essense.secondary.decorators import thread
 from essense.secondary.fs.directorys import Directory
+from essense.user import User
 
 
 def client():

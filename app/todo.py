@@ -15,7 +15,11 @@ def todo_register():
     keys = Keys().get_keys()  # Получаем их строковое представление
     address = Keys().pubkey_to_address(keys[0])  # Генерируем адресс
     JsonFiles().write_to_data(const.PATH_TO_ADDRESS, address)  # Запись адреса
-    get_users(address, form)  # Вносим данные
+    data = get_users(address, form)  # Вносим данные
+
+    path_to_dir = User().create_user_dir(address)  # Создаем папку для пользователя
+    JsonFiles().write_to_data(os.path.join(const.PATH_TO_BCH_USERS, path_to_dir, 'public_key.txt'), keys[0])  # Пишем туда ключ
+    JsonFiles().set_json_in_file(os.path.join(const.PATH_TO_BCH_USERS, path_to_dir, const.PATH_TO_USER_INFO), data)
 
     return redirect(url_for('message', type='registration'))
 
@@ -47,7 +51,7 @@ def todo_login():
     data = User().get_info_user(address)
 
     if data:
-        get_users(address, data)
+        JsonFiles().set_json_in_file(const.PATH_TO_DATA, data)
     else:
         return redirect(url_for('login', error='Такой пользователь не найден!'))
 
@@ -55,9 +59,11 @@ def todo_login():
 
 
 def get_users(address, data):
-    data = {
+    data_info = {
         "id": address,
         "info": data
     }
 
-    JsonFiles().set_json_in_file(const.PATH_TO_DATA, data)
+    JsonFiles().set_json_in_file(const.PATH_TO_DATA, data_info)
+
+    return data_info
