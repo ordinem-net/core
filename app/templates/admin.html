@@ -2,6 +2,8 @@
 
 {% block title %}Admin{% endblock %}
 
+{% set user_photo = data.get('user_photo') %}
+
 {% block links %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 {% endblock %}
@@ -9,16 +11,59 @@
 {% block content %}
 <div class="resume">
 	<div class="column column_small">
-		<div class="resume__image column_small-block">
-			<div class="resume__image-i">Тут фотка</div>
-			<button class="resume__link">Изменить</button>
+		<div class="card card_center card_radius">
+			<div class="resume__element">
+				<div class="resume__photo">
+					{% if user_photo and Mage().get_path_to_image(address, user_photo) %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+					{% else %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+					{% endif %}
+				</div>
+				{% if data.get('role') %}
+				<div class="resume__text resume__text_small resume__text_center">
+					{{ 'Компания' if data.get('role') == 1 else 'Пользователь' }}
+				</div>
+				<div class="resume__text resume__text_ellips resume__text_center">{{ data.get('name') }}</div>
+				{% endif %}
+			</div>
+			<div class="resume__element">
+				<a href="{{ url_for('admin_edit', menu='public_info') }}" class="resume__button resume__button_max-width">
+					Редактировать профиль</a>
+			</div>
+			{% if data.get('public_info') %}
+			{% set public_info = data.get('public_info') %}
+			<div class="resume__element">
+				{% if public_info.get('age') %}
+				<h2 class="resume__subtitle">Возраст и пол</h2>
+				<div class="resume__row">
+					<div class="resume__row_label">Возраст</div>
+					<div class="resume__row_value">{{ public_info.get('age') }}</div>
+				</div>
+				<div class="resume__row">
+					<div class="resume__row_label">Пол</div>
+					<div class="resume__row_value">{{ 'Мужской' 
+					if not public_info.get('gender') or public_info.get('gender') == 'm'
+					else 'Женский' }}</div>
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
 		</div>
 	</div>
-	<div class="column colunt_medium column_radius">
-		<div class="resume__main-info">
-			<h1 class="resume__title">Личная информация</h1>
-			<div class="resume__main-info-i">
-				
+	<div class="column column_medium">
+		<div class="card card_radius card_margin">
+			<h1 class="resume__title">Обо мне</h1>
+			<div class="resume__card-body">
+				{% if not data.get('about_us') %}
+				<div class="resume__card_no-content">
+					<h3 class="resume__card_no-content_title">Информация отсутсвует!</h3>
+					<p class="resume__card_no-content_text">Расскажите немного о себе, поделитесь вашим опытом</p>
+					<p class="resume__card_no-content_text">Это значительно скрасит ваше резюме!</p>
+					<a 	href="{{ url_for('admin_edit', menu='public_info') }}"
+						class="resume__button resume__button_margin">Дополнить резюме</a>
+				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

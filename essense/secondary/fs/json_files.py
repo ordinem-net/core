@@ -1,3 +1,6 @@
+#encoding="utf-8"
+#coding=utf-8
+
 import json
 
 from essense.secondary.fs.files import Files
@@ -33,7 +36,7 @@ class JsonFiles(Files):
             self.create_file(path_to_file)
 
         with open(path_to_file, 'w') as file:
-            json.dump(data, file)
+            json.dump(data, file, ensure_ascii=False, encoding="utf-8")
 
         return True
 

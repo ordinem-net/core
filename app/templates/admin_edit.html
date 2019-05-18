@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Edit{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="content__body">
+	<div class="column column_small">
+		<div class="card card_radius card_flex">
+			<div class="user__photo">
+				<div class="user__photo-i">
+					{% if user_photo and Mage().get_path_to_image(address, user_photo) %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+					{% else %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+					{% endif %}
+				</div>
+			</div>
+			<div class="user__name">
+				<div class="resume__text resume__text_small resume__text_center">
+					{{ 'Компания' if data.get('role') == 1 else 'Пользователь' }}
+				</div>
+				<div class="resume__text resume__text_ellips resume__text_center">{{ data.get('name') }}</div>
+			</div>
+		</div>
+		<div class="card card_radius card_no-padding">
+			<h2 class="resume__subtitle">Навигация</h2>
+			<nav class="navigation">
+				{% for link in config["links"] %}
+				{% if link["name"] == menu %}
+				<div class="navigation__item navigation__item_action">
+					{{ link["title"].encode('cp1251').decode('utf-8') }}
+				</div>
+				{% else %}
+				<a href="{{ url_for('admin_edit', menu=link['name']) }}" class="navigation__item">
+					{{ link["title"].encode('cp1251').decode('utf-8') }}
+				</a>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="column column_medium">
+		<div class="card card_radius"></div>
+	</div>
+</div>
+{% endblock %}

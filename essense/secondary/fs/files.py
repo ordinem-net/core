@@ -1,4 +1,5 @@
 import os
+import shutil
 from essense.secondary.fs.directorys import Directory
 
 
@@ -58,6 +59,31 @@ class Files(Directory):
         :return: <bool> Существование директории
         """
         return self.is_dir(self.get_dir_for_file(path_to_file))
+
+    def copy_file(self, name_file, dir_from, dir_to):
+        """
+        Метод копирования файла из одной директории в другую
+        :param name_file: <str> Имя файла
+        :param dir_from: <str> Директория, в которой лежит файл
+        :param dir_to: <str> Директория, в которую нужно скопировать файл
+        :return: <str> Новый путь к файлу
+        """
+        path_from = os.path.join(dir_from, name_file)
+
+        if not self.is_file(path_from):
+            return ''
+
+        path_to = os.path.join(dir_to, name_file)
+
+        if not self.is_dir(dir_to):
+            self.create_directory(dir_to)
+
+        if self.is_file(path_to):
+            return path_to
+
+        shutil.copy(path_from, path_to)
+
+        return path_to
 
     @staticmethod
     def clear_file(path_to_file):

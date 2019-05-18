@@ -24,6 +24,28 @@ class User(ActionUser):
         """Запуск сервера на прослушку сети"""
         self.__network__.server(const.PORT_USER, self.__get_message, const.LISTEN_USER)
 
+    @staticmethod
+    def create_user_object(address, data):
+        """
+        Метод создания базового образца обхекта пользователя
+        :param address: <str> Сгенерированный адрес пользователя
+        :param data: <obj json|dict> Информация о пользователе
+        :return: <obj json|dict> Объект со всему необходимыми данными
+        """
+        return {
+            "id": address,
+            "info": {
+                "name": data.get('name'),
+                "role": data.get('role'),
+                "user_photo": "",
+                "public_info": {
+                    "age": 0,
+                    "gender": "m"
+                },
+                "about_us": False
+            }
+        }
+
     def get_this_user_info(self):
         """Метод получения информации о данном пользователе"""
         return self.__json__.get_json(const.PATH_TO_DATA)

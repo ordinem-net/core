@@ -14,6 +14,7 @@ class Const(object):
 
     PATH_TO_DATA = os.path.join(PATH_TO_FILES, 'data.json')
     PATH_TO_ADDRESS = os.path.join(PATH_TO_FILES, 'address.txt')
+    PATH_TO_CONFIG_EDIT_USER = os.path.join(PATH_TO_FILES, 'user_edit.json')
     PATH_TO_LIST = os.path.join(PATH_TO_FILES, 'list')
     PATH_TO_TMP = os.path.join(PATH_TO_FILES, 'tmp')
     PATH_TO_KEYS = os.path.join(PATH_TO_FILES, 'keys')
@@ -38,6 +39,10 @@ class Const(object):
     PATH_TO_USER_INFO = 'data.json'
     PATH_TO_USER_PART_FILES = 'files'  # Все куски, для этого пользователя, полученные на хранение
     PATH_TO_USER_BUILD_FILES = 'build_files'  # Ранее собранные целые файлы
+
+    """Для фронта"""
+    FLASK_STATIC = os.path.join(ROOT, 'app', 'static')
+    FLASK_STATIC_IMAGE = os.path.join(FLASK_STATIC, 'img')
 
     """
     -------------------------------------

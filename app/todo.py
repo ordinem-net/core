@@ -59,10 +59,7 @@ def todo_login():
 
 
 def get_users(address, data):
-    data_info = {
-        "id": address,
-        "info": data
-    }
+    data_info = User().create_user_object(address, data)
 
     JsonFiles().set_json_in_file(const.PATH_TO_DATA, data_info)
 

@@ -1,0 +1,24 @@
+{
+	"links": [
+		{"name": "public_info", "title": "Личная информация"}
+	],
+	"public_info": {
+		"name": {
+			"type": "text",
+			"title": "Ваше имя",
+			"default": "",
+			"attr": {
+				"max-length": 50
+			}
+		},
+		"gender": {
+			"type": "select radio",
+			"title": "Ваш пол",
+			"default": "m",
+			"values": [
+				{"title": "Мужской", "value": "m"},
+				{"title": "Женский", "value": "w"}
+			]
+		}
+	}
+}

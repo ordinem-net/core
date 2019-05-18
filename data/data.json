@@ -1,1 +1,13 @@
-{"id": "LS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tCk1FZ0NRUURLRzV4NUhvd1ROYUl0dUlmOXRBWWVhZkVna1MvUW45OTI1emlpbElnOFVFNTh4aWVHd2l4cXpGUWsKaDZWL1JzYjJXbWphK05lRjdXWmgxS09BUlJqeEFnTUJBQUU9Ci0tLS0tRU5EIFJTQSBQVUJMSUMgS0VZLS0tLS0K", "info": {"name": "Last Name", "role": "0"}}
+{
+	"id": "LS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tCk1FZ0NRUURLRzV4NUhvd1ROYUl0dUlmOXRBWWVhZkVna1MvUW45OTI1emlpbElnOFVFNTh4aWVHd2l4cXpGUWsKaDZWL1JzYjJXbWphK05lRjdXWmgxS09BUlJqeEFnTUJBQUU9Ci0tLS0tRU5EIFJTQSBQVUJMSUMgS0VZLS0tLS0K", 
+	"info": {
+		"name": "Last Name",
+		"role": "0",
+		"user_photo": "postwallpaper.jpg",
+		"public_info": {
+			"age": 19,
+			"gender": "m"
+		},
+		"about_us": false
+	}
+}

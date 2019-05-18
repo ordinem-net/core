@@ -2,11 +2,12 @@ from app.app import app
 from flask import render_template, redirect, url_for, Markup, request
 from app.mage import Mage
 from const import const
-import os
 from essense.user import User
+from essense.secondary.fs.json_files import JsonFiles
 
 
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html', name='index', sockets=True)
 
@@ -62,14 +63,35 @@ def message():
     return render_template('message.html', name='message', message=mes)
 
 
-@app.route('/admin')
+@app.route('/profile', methods=['POST', 'GET'])
 def admin():
     data = User().get_this_user_info()
+    error = request.args.get('error')
 
     if not Mage().action_user() or not data or not data["info"]:
         return redirect(url_for('login'))
 
-    return render_template('admin.html', name='admin', data=data['info'])
+    return render_template('admin.html', name='admin', error=error, data=data['info'], address=data['id'])
+
+
+@app.route('/profile/edit/<menu>')
+def admin_edit(menu):
+    config = JsonFiles().get_json(const.PATH_TO_CONFIG_EDIT_USER)
+
+    test = False
+    for link in config["links"]:
+        if menu == link["name"]:
+            test = True
+
+    if not test:
+        return redirect(url_for('admin', error='Страница не найдена!'))
+
+    data = User().get_this_user_info()
+    if not Mage().action_user() or not data or not data["info"]:
+        return redirect(url_for('login'))
+
+    return render_template('admin_edit.html', name='edit_profile', menu=menu,
+                           data=data['info'], address=data['id'], config=config)
 
 
 @app.errorhandler(404)

@@ -42,17 +42,6 @@
                     />
                 </a>
             {% endif %}
-            <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
-            <script>
-                var popup = {
-                    element: document.querySelector('#iconAdmin'),
-                    li: [
-                        {title: 'Мой профиль', url: '{{ url_for("admin") }}'}
-                    ]
-                };
-
-                new Popup(popup);
-            </script>
         {% endif %}
     </div>
 </header>
