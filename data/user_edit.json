@@ -8,7 +8,7 @@
 			"title": "Ваше имя",
 			"default": "",
 			"attr": {
-				"max-length": 50
+				"maxlength": 50
 			}
 		},
 		"gender": {

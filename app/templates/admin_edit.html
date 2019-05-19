@@ -8,12 +8,13 @@
 {% endblock %}
 
 {% block content %}
+{% set action_user_photo = user_photo and Mage().get_path_to_image(address, user_photo) %}
 <div class="content__body">
 	<div class="column column_small">
 		<div class="card card_radius card_flex">
 			<div class="user__photo">
 				<div class="user__photo-i">
-					{% if user_photo and Mage().get_path_to_image(address, user_photo) %}
+					{% if action_user_photo %}
 					<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
 					{% else %}
 					<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
@@ -45,7 +46,94 @@
 		</div>
 	</div>
 	<div class="column column_medium">
-		<div class="card card_radius"></div>
+		<div class="card card_radius card_center">
+			<div class="user__photo-i user__photo_medium user__photo_margin">
+				{% if action_user_photo %}
+				<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+				{% else %}
+				<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+				{% endif %}
+			</div>
+			<h2 class="resume__subtitle">Ваша фотография</h2>
+			<div class="user__action-block">
+				{% if action_user_photo %}
+				<button class="user__bth user__bth_action user__bth_margin">Изменить</button>
+				<button class="user__bth user__bth_remove user__bth_margin">Удалить</button>
+				{% else %}
+				<button class="user__bth user__bth_action">Добавить</button>
+				{% endif %}
+			</div>
+		</div>
+		<div class="card card_radius card_center">
+			<div class="card__title">Редактирование информации</div>
+			<div class="card__body">
+				{% for item_name, item_config in config["public_info"].items() %}
+				{% if item_config["type"] == 'text' %}
+				<div class="card__redaction">
+					<label for="{{ item_name }}"class="card__redaction_label">
+						{{ item_config["title"].encode('cp1251').decode('utf-8') }}
+					</label>
+					<input type="text"class="card__redaction_text"
+						value="{{ data[item_name] or item_config['default'] }}"
+						{% for attr, value in item_config['attr'].items() %}
+						{{attr}}="{{value}}"
+						{% endfor %}
+					/>
+				</div>
+				{% elif item_config["type"] == 'select radio' %}
+				<div class="card__redaction card__redaction_select-radio">
+					<h2 class="card__redaction_label">
+						{{ item_config["title"].encode('cp1251').decode('utf-8') }}
+					</h2>
+					{% for items in item_config["values"] %}
+					<div class="card__redaction_select-radio_body">
+						<input type="radio" id="{{ item_name }}_{{ items['value'] }}"
+							class="card__redaction_radio"
+							name="{{ item_name }}"
+							{% if items['value'] == item_config['default'] %}checked{% endif %}
+						/>
+						<label for="{{ item_name }}_{{ items['value'] }}"
+							class="card__redaction_radio_label"
+						>
+							{{ items['title'].encode('cp1251').decode('utf-8') }}
+						</label>
+					</div>
+					{% endfor %}
+				</div>
+				{% endif %}
+				{% endfor %}
+				<div class="card__readaction">
+					<h2 class="card__redaction_label">Обо мне</h2>
+					<div class="card__redaction_about_us" id="infoAboutAs"></div>
+				</div>
+				<button class="user__bth user__bth_action user__bth_center" id="redactionUser">Редактировать</button>
+			</div>
+		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='lib/js/editorjs.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/editorjslist.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/editorjsheader.min.js') }}"></script>
+<script>
+	var editor = new EditorJS({
+		holder: 'infoAboutAs',
+		minHeight: 100,
+		tools: {
+			list: {
+      			class: List,
+      			inlineToolbar: true,
+    		},
+    		header: {
+      			class: Header,
+      			shortcut: 'CMD+SHIFT+H',
+    		}
+		},
+		placeholder: 'Расскажите немного о себе',
+		data: {} 
+	});
+</script>
+<script src="{{ url_for('static', filename='js/redactor_user.js') }}"></script>
 {% endblock %}
