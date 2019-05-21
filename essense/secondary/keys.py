@@ -42,9 +42,11 @@ class Keys:
         Метод преобразующий адрес в открытый ключ.
         В качестве параметра принимает адрес и возвращает открытый ключ в формате str.
         """
-        pubkey = base64.b64decode(address).decode('utf-8')
-
-        return pubkey
+        try:
+            pubkey = base64.b64decode(address).decode('utf-8')
+            return pubkey
+        except:
+            return False
 
     def get_keys(self, path_to_public_key=const.PATH_TO_KEY_PUBLIC, path_to_private_key=const.PATH_TO_KEY_PRIVATE):
         """
