@@ -43,10 +43,6 @@ class User(ActionUser):
                 "age_and_gender": {
                     "title": "Возраст и пол",
                     "props": {
-                        "name": {
-                            "value": data.get('name'),
-                            "no_show": True
-                        },
                         "age": {
                             "title": "Возраст",
                             "value": ""

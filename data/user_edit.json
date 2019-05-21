@@ -2,7 +2,7 @@
 	"links": [
 		{"name": "public_info", "title": "Личная информация"}
 	],
-	"public_info": {
+	"main_info": {
 		"name": {
 			"type": "text",
 			"title": "Ваше имя",
@@ -10,7 +10,9 @@
 			"attr": {
 				"maxlength": 50
 			}
-		},
+		}
+	},
+	"public_info": {
 		"age": {
 			"type": "number",
 			"title": "Ваш возраст",

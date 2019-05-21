@@ -92,10 +92,12 @@ def get_edit_data_user_public(data, data_user):
         if name == 'about_us':
             data_user['about_us'] = value
 
-        elif not name == 'type':
+        elif not name == 'type' and not name == 'main_info':
             for name_attr, value_attr in value.items():
                 data_user['public_info'][name]['props'][name_attr]['value'] = value_attr
-            if 'name' in value:
-                data_user['main_info']['name'] = value['name']
+
+        elif name == 'main_info':
+            for name_attr, value_attr in value.items():
+                data_user['main_info'][name_attr] = value_attr
 
     return data_user

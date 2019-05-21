@@ -74,6 +74,19 @@
 		<div class="card card_radius card_center">
 			<div class="card__title">Редактирование информации</div>
 			<div class="card__body" id="formUser">
+				<div class="card__redaction" data-name="main_info">
+					<label for="name"class="card__redaction_label">
+						{{ config['main_info']['name']["title"].encode('cp1251').decode('utf-8') }}
+					</label>
+					<input type="text"
+						class="card__redaction_text jsInputForm"
+						value="{{ data['main_info']['name'] or config['main_info']['name']['default'] }}"
+						name="name"
+						{% for attr, value in config['main_info']['name']['attr'].items() %}
+						{{attr}}="{{value}}"
+						{% endfor %}
+					/>
+				</div>
 				{% for section_name, section_data in public_info.items() %}
 				{% set elems_form = section_data.get('props') %}
 				{% for name, value_obj in elems_form.items() %}
@@ -98,7 +111,7 @@
 							{{ conf[name]["title"].encode('cp1251').decode('utf-8') }}
 						</h2>
 						{% for items in conf[name]["values"] %}
-						<div class="card__redaction_select-radio_body">
+						<div class="card__redaction_select-radio_body" data-name="{{ section_name }}">
 							<input type="radio"
 								id="{{ name }}_{{ items['value'] }}"
 								class="card__redaction_radio jsInputForm"
@@ -164,8 +177,8 @@
 		},
 		placeholder: 'Расскажите немного о себе',
 		data: {
-			{% if public_info['about_us'] %}
-				blocks: [{{ public_info['about_us'] }}]
+			{% if data['about_us'] %}
+				blocks: fixJsObj('{{ data['about_us'] }}')
 			{% endif %}
 		}
 	});

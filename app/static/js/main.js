@@ -1,0 +1,1 @@
+"use strict";var HTMLSpechialChar={"&#39;":'"',"&lt;":"<","&gt;":">","&guot;":'"',"&#x2F;":"/"};function fixJsObj(r){var a=r;for(var e in HTMLSpechialChar)a=a.replace(new RegExp(e,"g"),HTMLSpechialChar[e]);return console.log(a),JSON.parse(a)}

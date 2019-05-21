@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block links %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
     {% if not no_header %}

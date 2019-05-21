@@ -31,7 +31,6 @@ const getForm = (prevData=[]) => {
 
 	if (prevData) {
 		prevData.forEach(({name, value}) => {
-			console.log(name);
 			data[name] = value;
 		});
 	}
@@ -39,7 +38,7 @@ const getForm = (prevData=[]) => {
 	const inputs = form.querySelectorAll('.jsInputForm');
 
 	for (let i = 0; i < inputs.length; i++) {
-		let name = inputs[0].parentNode.dataset.name;
+		let name = inputs[i].parentNode.dataset.name;
 
 		switch(inputs[i].type) {
 			case 'text': {
@@ -98,6 +97,7 @@ const sendMessage = (path, data) => {
 		if (xhr.status != 200) {
     		console.log(xhr.status + ': ' + xhr.statusText);
   		} else {
+  			alert('Ваши изменения сохранены. Они в ближайшее время будут доступны всем.');
     		console.log(xhr.responseText);
   		}
 	}

@@ -40,7 +40,6 @@
 			<div class="resume__element">
 				<h2 class="resume__subtitle">{{ info.get('title') }}</h2>
 				{% for name, row_item in info.get('props').items() %}
-				{% if not row_item.get('no_show') %}
 				<div class="resume__row">
 					<div class="resume__row_label">{{ row_item.get('title') }}</div>
 					<div class="resume__row_value">
@@ -55,7 +54,6 @@
 						{% endif %}
 					</div>
 				</div>
-				{% endif %}
 				{% endfor %}
 			</div>
 			{% endfor %}
@@ -68,7 +66,7 @@
 			<div class="resume__card-body">
 				{% if not data.get('about_us') %}
 				<div class="resume__card_no-content">
-					<h3 class="resume__card_no-content_title">Информация отсутсвует!</h3>
+					<h3 class="resume__card_no-content_title">Информация отсутствует!</h3>
 					<p class="resume__card_no-content_text">Расскажите немного о себе, поделитесь вашим опытом</p>
 					<p class="resume__card_no-content_text">Это значительно скрасит ваше резюме!</p>
 					<a 	href="{{ url_for('admin_edit', menu='public_info') }}"
@@ -85,6 +83,9 @@
 				</script>
 				{% endif %}
 			</div>
+		</div>
+		<div class="card card_center card_no-design">
+			<a href="#" class="resume__button">Редактировать секции</a>
 		</div>
 	</div>
 </div>
