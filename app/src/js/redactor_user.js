@@ -1,27 +1,104 @@
 'use strict';
 
 const bth = document.querySelector('#redactionUser');
+const form = document.querySelector('#formUser');
+
+const inp_number = document.querySelectorAll('input[type="number"].jsInputForm');
+for (let i = 0; i < inp_number.length; i++ ) {
+	inp_number[i].addEventListener('blur', ({target}) => {
+		if (+target.value < +target.min) {
+			target.value = target.min;
+		}
+
+		if (+target.value > +target.max) {
+			target.value = target.max;
+		}
+	});
+}
 
 bth.addEventListener('click', () => {
 	editor.save().then((outputData) => {
-		if (outputData.blocks.length) {
-			getForm([{name: 'about_us', value: outputData}]);
-		} else {
-			getForm();
-		}
+		getForm([{name: 'about_us', value: outputData.blocks}]);
 	}).catch((error) => {
-  		console.log('Saving failed: ', error)
+  		alert('Saving failed: ', error)
 	});
-})
+});
 
 const getForm = (prevData=[]) => {
-	const data = {};
+	const data = {
+		type: global_edit_name
+	};
 
 	if (prevData) {
 		prevData.forEach(({name, value}) => {
+			console.log(name);
 			data[name] = value;
 		});
 	}
 
-	console.log(data)
+	const inputs = form.querySelectorAll('.jsInputForm');
+
+	for (let i = 0; i < inputs.length; i++) {
+		let name = inputs[0].parentNode.dataset.name;
+
+		switch(inputs[i].type) {
+			case 'text': {
+				if (!data[name]) {
+					data[name] = {}
+				}
+
+				data[name][inputs[i].name] = inputs[i].value;
+				break;
+			}
+			case 'radio': {
+				if (!data[name]) {
+					data[name] = {}
+				}
+
+				if (inputs[i].checked) {
+					data[name][inputs[i].name] = inputs[i].value;
+				}
+				break;
+			}
+			case 'number': {
+				if (!inputs[i].value) {
+					break;
+				}
+
+				if (!data[name]) {
+					data[name] = {}
+				}
+
+				if (+inputs[i].value < +inputs[i].min) {
+					data[name][inputs[i].name] = inputs[i].min;
+				}else if (+inputs[i].value > +inputs[i].max) {
+					data[name][inputs[i].name] = inputs[i].max;
+				} else {
+					data[name][inputs[i].name] = +inputs[i].value;
+				}
+
+				break;
+			}
+		}
+	}
+
+	sendMessage('/todo/edit_profile', data);
+}
+
+const sendMessage = (path, data) => {
+	let xhr = new XMLHttpRequest();
+
+	xhr.open('POST', path, true)
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.send(JSON.stringify(data))
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState != 4) return;
+
+		if (xhr.status != 200) {
+    		console.log(xhr.status + ': ' + xhr.statusText);
+  		} else {
+    		console.log(xhr.responseText);
+  		}
+	}
 }

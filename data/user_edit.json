@@ -11,6 +11,15 @@
 				"maxlength": 50
 			}
 		},
+		"age": {
+			"type": "number",
+			"title": "Ваш возраст",
+			"default": "",
+			"attr": {
+				"max": 130,
+				"min": 10
+			}
+		},
 		"gender": {
 			"type": "select radio",
 			"title": "Ваш пол",

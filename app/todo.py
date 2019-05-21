@@ -1,6 +1,6 @@
 from app.app import app
 from app.view import *
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, jsonify
 from essense.secondary.fs.json_files import JsonFiles
 from essense.secondary.keys import Keys
 from essense.user import User
@@ -58,9 +58,44 @@ def todo_login():
     return redirect(url_for('admin'))
 
 
+@app.route('/todo/edit_profile', methods=['GET', 'POST'])
+def todo_edit_profile():
+    data = request.json
+
+    user_info = JsonFiles().get_json(const.PATH_TO_DATA)
+
+    user_info_new = user_info
+    if data["type"] == 'public_info':
+        user_info_new = get_edit_data_user_public(data, user_info)
+
+    JsonFiles().set_json_in_file(const.PATH_TO_DATA, user_info_new)
+
+    name_dir = User().get_dir_user(user_info['id'])
+    JsonFiles().set_json_in_file(
+        os.path.join(const.PATH_TO_USER_INFO, name_dir, const.PATH_TO_USER_INFO),
+        user_info_new
+    )
+
+    return jsonify({'status': 'ok'})
+
+
 def get_users(address, data):
     data_info = User().create_user_object(address, data)
 
     JsonFiles().set_json_in_file(const.PATH_TO_DATA, data_info)
 
     return data_info
+
+
+def get_edit_data_user_public(data, data_user):
+    for name, value in data.items():
+        if name == 'about_us':
+            data_user['about_us'] = value
+
+        elif not name == 'type':
+            for name_attr, value_attr in value.items():
+                data_user['public_info'][name]['props'][name_attr]['value'] = value_attr
+            if 'name' in value:
+                data_user['main_info']['name'] = value['name']
+
+    return data_user

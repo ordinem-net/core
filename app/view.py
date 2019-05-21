@@ -68,10 +68,10 @@ def admin():
     data = User().get_this_user_info()
     error = request.args.get('error')
 
-    if not Mage().action_user() or not data or not data["info"]:
+    if not Mage().action_user() or not data or not data["main_info"]:
         return redirect(url_for('login'))
 
-    return render_template('admin.html', name='admin', error=error, data=data['info'], address=data['id'])
+    return render_template('admin.html', name='admin', error=error, data=data, address=data['id'])
 
 
 @app.route('/profile/edit/<menu>')
@@ -87,11 +87,11 @@ def admin_edit(menu):
         return redirect(url_for('admin', error='Страница не найдена!'))
 
     data = User().get_this_user_info()
-    if not Mage().action_user() or not data or not data["info"]:
+    if not Mage().action_user() or not data:
         return redirect(url_for('login'))
 
     return render_template('admin_edit.html', name='edit_profile', menu=menu,
-                           data=data['info'], address=data['id'], config=config)
+                           data=data, address=data['id'], config=config)
 
 
 @app.errorhandler(404)

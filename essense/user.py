@@ -34,16 +34,36 @@ class User(ActionUser):
         """
         return {
             "id": address,
-            "info": {
+            "main_info": {
                 "name": data.get('name'),
                 "role": data.get('role'),
                 "user_photo": "",
-                "public_info": {
-                    "age": 0,
-                    "gender": "m"
-                },
-                "about_us": False
-            }
+            },
+            "public_info": {
+                "age_and_gender": {
+                    "title": "Возраст и пол",
+                    "props": {
+                        "name": {
+                            "value": data.get('name'),
+                            "no_show": True
+                        },
+                        "age": {
+                            "title": "Возраст",
+                            "value": ""
+                        },
+                        "gender": {
+                            "title": "Пол",
+                            "value": "m",
+                            "description": {
+                                "m": "Мужской",
+                                "w": "Женский"
+                            }
+                        }
+                    }
+                }
+            },
+            "about_us": {},
+            "sections": []
         }
 
     def get_this_user_info(self):
@@ -60,7 +80,7 @@ class User(ActionUser):
         if not address:
             return {}
 
-        path_to_dir = self.__get_dir_user(address)
+        path_to_dir = self.get_dir_user(address)
 
         if not path_to_dir:
             # TODO: тянем с блокчейна и т.д.
@@ -105,7 +125,7 @@ class User(ActionUser):
 
         return hash_address
 
-    def __get_dir_user(self, address):
+    def get_dir_user(self, address):
         """
         Метод получения имени директории, в которой лежим информация о пользователе
         :param address: <str> адресс пользователя
