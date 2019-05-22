@@ -34,6 +34,11 @@ class Transactions:
 
 
     def verify_transaction(self,transaction):
+        """
+        Метод для проверки транзакции.
+        Принимает транзакцию.
+        Результат проверки True или False.
+        """
         
         hash = transaction.get('hash')
         sender = transaction.get('sender')
