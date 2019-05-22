@@ -5,6 +5,11 @@ import hashlib
 class Blockchain:
 
     def new_block(self,transactions):
+        """
+        Метод создания блока.
+        Принимает транзакции.
+        Результатом возвращает блок.
+        """
 
         timestamp = time.time()
 
@@ -31,6 +36,11 @@ class Blockchain:
         return block
     
     def check_block(self,block):
+        """
+        Метод для проверки блока.
+        Принимает блок.
+        Результат проверки True или False.
+        """
 
         transactions = block.get('transactions')
         block_flag = 0
