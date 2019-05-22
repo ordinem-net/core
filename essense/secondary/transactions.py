@@ -7,13 +7,13 @@ import base64
 
 class Transactions:
 
-    def new_transaction(self,data):
+    def new_transaction(self,type,data):
 
         pubkey = Keys().get_keys()[0]
         privkey = Keys().get_keys()[1]
         address = Keys().pubkey_to_address(pubkey)
         
-        _hash = address + str(data)
+        _hash = str(type) + address + str(data)
         _hash = _hash.encode('UTF-8')
         hash = hashlib.md5(_hash).hexdigest()
         
@@ -21,6 +21,7 @@ class Transactions:
         signature = base64.b64encode(_signature).decode('utf-8')
         
         transaction = {
+            'type' : type,
             'hash' : hash,
             'sender' : address,
             'signature' : signature,
@@ -36,10 +37,11 @@ class Transactions:
         sender = transaction.get('sender')
         signature = transaction.get('signature')
         data = transaction.get('data')
+        type = transaction.get('type')
         
         _pubkey = Keys.address_to_pubkey(sender)
 
-        _new_hash = str(sender) + str(data)
+        _new_hash = str(type) + str(sender) + str(data)
         _new_hash = _new_hash.encode('UTF-8')
         n_hash = hashlib.md5(_new_hash).hexdigest()
         
