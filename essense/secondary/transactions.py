@@ -8,17 +8,19 @@ import base64
 class Transactions:
 
     def new_transaction(self,type,data):
+        """
+        Метод для создания транзакции.
+        Принимает тип транзакции и какие-либо данные в data.
+        Результатом возвращает транзакцию.
+        """
 
         pubkey = Keys().get_keys()[0]
         privkey = Keys().get_keys()[1]
         address = Keys().pubkey_to_address(pubkey)
         
-        _hash = str(type) + address + str(data)
-        _hash = _hash.encode('UTF-8')
-        hash = hashlib.md5(_hash).hexdigest()
+        hash = hashlib.md5((str(type) + address + str(data)).encode('UTF-8')).hexdigest()
         
-        _signature = rsa.sign(hash.encode('utf-8'), rsa.PrivateKey.load_pkcs1(privkey), 'SHA-1')
-        signature = base64.b64encode(_signature).decode('utf-8')
+        signature = base64.b64encode(rsa.sign(hash.encode('utf-8'), rsa.PrivateKey.load_pkcs1(privkey), 'SHA-1')).decode('utf-8')
         
         transaction = {
             'type' : type,
@@ -41,13 +43,11 @@ class Transactions:
         
         _pubkey = Keys.address_to_pubkey(sender)
 
-        _new_hash = str(type) + str(sender) + str(data)
-        _new_hash = _new_hash.encode('UTF-8')
-        n_hash = hashlib.md5(_new_hash).hexdigest()
+        new_hash = hashlib.md5((str(type) + sender + str(data)).encode('UTF-8')).hexdigest()
         
         try:
             pubkey = rsa.PublicKey.load_pkcs1(_pubkey)
-            if (n_hash == hash):
+            if (new_hash == hash):
                 if ((rsa.verify(hash.encode('UTF-8'), base64.b64decode(signature), pubkey)) == 'SHA-1'):
                     return True
         except:
