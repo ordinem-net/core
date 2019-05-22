@@ -8,14 +8,24 @@ class Blockchain:
 
         timestamp = time.time()
 
-        to_hash = str(timestamp) + str(transactions)
-        to_hash = to_hash.encode('UTF-8')
-        hash = hashlib.md5(to_hash).hexdigest()
+        # Получаем хэш блока из основных элементов.
+        hash = hashlib.md5((str(timestamp)+ str(transactions)).encode('UTF-8')).hexdigest()
+        
+        # Высчитываем nonce по условию.
+        condition = '00000'  # Хэш должен начинаться с 5 нулей.
+        nonce = 0
+        hash_nonce = hash
+
+        # Выпоняем цикл пока хэш не будет начинаться с нужного количества нулей.
+        while (hash_nonce[0:len(condition)] != condition):
+            nonce += 1
+            hash_nonce = hashlib.md5((str(hash) + str(nonce)).encode('UTF-8')).hexdigest()
         
         block = {
             'timestamp' : timestamp,
             'transactions' : transactions,
-            'hash' : hash
+            'hash' : hash,
+            'nonce': nonce
         }
         
         return block
@@ -34,10 +44,18 @@ class Blockchain:
         
         hash = block.get('hash')
         timestamp = block.get('timestamp')
-        to_hash = str(timestamp) + str(transactions)
-        to_hash = to_hash.encode('UTF-8')
+        to_hash = hashlib.md5((str(timestamp)+ str(transactions)).encode('UTF-8')).hexdigest()
 
-        if (hashlib.md5(to_hash).hexdigest() != hash):
+        if (to_hash != hash):
+            return False
+        
+        # Проверяем nonce блока.
+        nonce = block.get('nonce')
+        condition = '00000'  # Хэш должен начинаться с 5 нулей.
+
+        hash_nonce = hashlib.md5((hash + str(nonce)).encode('UTF-8')).hexdigest()
+        
+        if hash_nonce[0:len(condition)] != condition:
             return False
         
         return True
