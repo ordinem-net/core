@@ -90,8 +90,13 @@ def admin_edit(menu):
     if not Mage().action_user() or not data:
         return redirect(url_for('login'))
 
-    return render_template('admin_edit.html', name='edit_profile', menu=menu,
-                           data=data, address=data['id'], config=config)
+    if menu == 'public_info':
+        return render_template('admin_edit.html', name='edit_profile', menu=menu,
+                               data=data, address=data['id'], config=config)
+
+    elif menu == 'section':
+        return render_template('admin_edit_section.html', name='edit_profile_section', menu=menu,
+                               data=data, address=data['id'], config=config)
 
 
 @app.errorhandler(404)

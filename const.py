@@ -3,6 +3,8 @@ import os
 
 class Const(object):
     ROOT = os.getcwd()
+
+    NAME_TMP = 'tmp'
     """
     -------------------------------------
                Константы пути
@@ -16,7 +18,7 @@ class Const(object):
     PATH_TO_ADDRESS = os.path.join(PATH_TO_FILES, 'address.txt')
     PATH_TO_CONFIG_EDIT_USER = os.path.join(PATH_TO_FILES, 'user_edit.json')
     PATH_TO_LIST = os.path.join(PATH_TO_FILES, 'list')
-    PATH_TO_TMP = os.path.join(PATH_TO_FILES, 'tmp')
+    PATH_TO_TMP = os.path.join(PATH_TO_FILES, NAME_TMP)
     PATH_TO_KEYS = os.path.join(PATH_TO_FILES, 'keys')
 
     PATH_TO_LIST_USERS = os.path.join(PATH_TO_LIST, 'users.json')
@@ -43,6 +45,12 @@ class Const(object):
     """Для фронта"""
     FLASK_STATIC = os.path.join(ROOT, 'app', 'static')
     FLASK_STATIC_IMAGE = os.path.join(FLASK_STATIC, 'img')
+    FLASK_STATIC_IMAGE_TMP = os.path.join(FLASK_STATIC_IMAGE, NAME_TMP)
+
+    TMP = [
+        FLASK_STATIC_IMAGE_TMP,
+        PATH_TO_TMP
+    ]
 
     """
     -------------------------------------

@@ -84,8 +84,11 @@
 				{% endif %}
 			</div>
 		</div>
+		{% for section in data['sections'] %}
+		<div class="card card_radius card_margin"></div>
+		{% endfor %}
 		<div class="card card_center card_no-design">
-			<a href="#" class="resume__button">Редактировать секции</a>
+			<a href="{{ url_for('admin_edit', menu='section') }}" class="resume__button">Редактировать секции</a>
 		</div>
 	</div>
 </div>

@@ -20,13 +20,13 @@
 	<div class="column column_small">
 		<div class="card card_radius card_flex">
 			<div class="user__photo">
-				<div class="user__photo-i">
+				<a href="{{ url_for('admin') }}" class="user__photo-i">
 					{% if action_user_photo %}
-					<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+					<img class="resume__photo-image js-userImage" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
 					{% else %}
-					<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+					<img class="resume__photo-image js-userImage" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
 					{% endif %}
-				</div>
+				</a>
 			</div>
 			<div class="user__name">
 				<div class="resume__text resume__text_small resume__text_center">
@@ -56,20 +56,13 @@
 		<div class="card card_radius card_center">
 			<div class="user__photo-i user__photo_medium user__photo_margin">
 				{% if action_user_photo %}
-				<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+				<img class="resume__photo-image js-userImage" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
 				{% else %}
-				<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+				<img class="resume__photo-image js-userImage" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
 				{% endif %}
 			</div>
 			<h2 class="resume__subtitle">Ваша фотография</h2>
-			<div class="user__action-block">
-				{% if action_user_photo %}
-				<button class="user__bth user__bth_action user__bth_margin">Изменить</button>
-				<button class="user__bth user__bth_remove user__bth_margin">Удалить</button>
-				{% else %}
-				<button class="user__bth user__bth_action">Добавить</button>
-				{% endif %}
-			</div>
+			<div class="user__action-block" id="actionImageUser"></div>
 		</div>
 		<div class="card card_radius card_center">
 			<div class="card__title">Редактирование информации</div>
@@ -156,6 +149,15 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/load_image.js') }}" ></script>
+<script>
+	let img = new LoadImage({
+		action: '#actionImageUser',
+		blocks_load: '.js-userImage',
+		status: {{'true' if Mage().get_path_to_image(address, user_photo) else 'false'}},
+		default_image: "{{ url_for('static', filename=config['main_info']['user_photo']['default']) }}"
+	});
+</script>
 <script src="{{ url_for('static', filename='lib/js/editorjs.min.js') }}"></script>
 <script src="{{ url_for('static', filename='lib/js/editorjslist.min.js') }}"></script>
 <script src="{{ url_for('static', filename='lib/js/editorjsheader.min.js') }}"></script>

@@ -34,13 +34,9 @@ class Mage(object):
         if not JsonFiles().is_file(path):
             return ''
 
-        dir_to = os.path.join(const.FLASK_STATIC_IMAGE, id_user)
+        dir_to = os.path.join(const.FLASK_STATIC_IMAGE_TMP, id_user)
 
         if not JsonFiles().is_file(os.path.join(dir_to, name_file)):
             JsonFiles().copy_file(name_file, directory, dir_to)
 
-        return id_user + '/' + name_file
-
-    @staticmethod
-    def get_path_to_html(name_file):
-        pass
+        return const.NAME_TMP + '/' + id_user + '/' + name_file
