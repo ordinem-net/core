@@ -3,6 +3,7 @@ from const import const
 import hashlib
 import rsa
 import base64
+import json
 
 
 class Transactions:
@@ -57,3 +58,14 @@ class Transactions:
                     return True
         except:
             return False
+
+    def actions(self,transaction):
+        if (Transactions().verify_transaction(transaction) == True):
+            
+            type = transaction.get('type')
+
+            if (type == 'registration'):
+                file = open(const.PATH_TO_LIST_USERS,'a')
+                json.dump(transaction,file)
+        
+        return True
