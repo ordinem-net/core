@@ -10,6 +10,7 @@
 {% block links %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -58,21 +59,28 @@
 	</div>
 	<div class="column column_medium">
 		<div id="sectionList"></div>
-		<div class="card card_center card_no-design">
-			<button class="resume__button" id="addNewSection">Добавить секцию</button>
+		<div class="card card_align-center card_no-design">
+			<button class="resume__button resume__button_margin" id="addNewSection">Добавить секцию</button>
+			<button class="resume__button resume__button_margin" id="saveSections">Сохранить</button>
 		</div>
 	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='lib/js/editorjs.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/editorjslist.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/editorjsheader.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/parse_description.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/popup.js') }}" ></script>
 <script src="{{ url_for('static', filename='js/redact_section.js') }}" ></script>
 <script>
 	let a = new SectionManager({
 		body: '#sectionList',
 		nav: '#navigationSection',
 		action_add: '#addNewSection',
-		sectionsInfo: []
+		save: '#saveSections',
+		sections: []
 	});
 
 	console.log(a);

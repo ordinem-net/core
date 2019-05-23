@@ -1,0 +1,110 @@
+@import (less) "_variable";
+
+.popup {
+	position: fixed;
+	background-color: #fff;
+	z-index: 20;
+	width: 700px;
+	max-width: 80%;
+	top: 80px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 20px;
+	box-shadow: 0 7px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
+
+	&__header {
+		border-radius: 20px 20px 0 0;
+		background-color: @color_blue;
+
+		&_text {
+			text-align: center;
+			font-weight: bold;
+			font-size: 24px;
+			color: #fff;
+			line-height: 45px;
+		}
+	}
+
+	&__body {
+		padding: 20px;
+	}
+
+	&__section {
+		margin-bottom: 20px;
+
+		&_label {
+			font-family: Roboto, sans-serif;
+			font-size: 20px;
+			line-height: 40px;
+			margin-bottom: 10px;
+			display: block;
+
+			&:after {
+				content: ':'
+			}
+		}
+
+		&_description {
+			width: 90%;
+			margin: auto;
+			margin-top: 10px;
+			margin-bottom: 30px;
+			box-shadow: 0 7px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
+			padding: 10px;
+			box-sizing: border-box;
+		}
+	}
+
+	&__bacground {
+		display: block;
+		position: fixed;
+		z-index: 19;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, .6);
+		top: 0;
+		left: 0;
+		cursor: pointer;
+	}
+
+	&__close {
+		position: absolute;
+		right: 10px;
+		top: 7px;
+		height: 30px;
+		width: 30px;
+		background-color: #a22;
+		cursor: pointer;
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 80px;
+	}
+
+	&__action {
+		background-color: @color_blue;
+		transition: .5s;
+		width: 200px;
+		height: 50px;
+		color: #fff;
+		margin-bottom: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+		outline: none;
+
+		&:hover {
+			background-color: @color_darkblue;
+		}
+	}
+}
+
+.cdx-block {
+	padding: 3px 0;
+}

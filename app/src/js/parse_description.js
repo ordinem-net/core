@@ -4,8 +4,11 @@ class ParseDescription {
 		el: undefined
 	}
 	constructor({el, obj}) {
-		console.log(obj);
-		this.state.obj = fixJsObj(obj);
+		if (typeof obj == 'string') {
+			this.state.obj = fixJsObj(obj);
+		} else {
+			this.state.obj = obj;
+		}
 
 		this.init_elem(el);
 	}
@@ -25,16 +28,15 @@ class ParseDescription {
 		let block = document.createElement('div');
 		block.classList = 'about-us-block';
 
+		console.log(obj);
 		obj.forEach(el => {
 			const elem = this.#createElement(el);
 
 			if (elem) {
-				console.log(elem)
 				block.appendChild(elem);
 			}
 		});
 
-		console.log(el);
 		el.appendChild(block);
 	}
 
@@ -59,7 +61,7 @@ class ParseDescription {
 
 	#createText = data => {
 		let p = document.createElement('p');
-		p.classList = 'about-us-block__text';
+		p.classList = 'section-body__text';
 
 		p.innerHTML = data.text;
 
@@ -68,7 +70,7 @@ class ParseDescription {
 
 	#createHeader = data => {
 		let p = document.createElement(`h${data.level}`);
-		p.classList = 'about-us-block__title';
+		p.classList = `section-body__title section-body__title_${ata.level}`;
 
 		p.innerHTML = data.text;
 
@@ -77,12 +79,12 @@ class ParseDescription {
 
 	#createList = data => {
 		let ul = document.createElement(`ul`);
-		ul.classList = `about-us-block__list_${data.style}`;
+		ul.classList = `section-body__list_${data.style}`;
 
 		let list = '';
 
 		data.items.forEach(item => {
-			list += `<li class="about-us-block__list_item">${item}</li>`
+			list += `<li class="section-body__list_item">${item}</li>`
 		});
 
 		ul.innerHTML = list;
