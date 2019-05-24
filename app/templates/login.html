@@ -43,7 +43,7 @@
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <script src="{{ url_for('static', filename='js/dragAndDrop.js') }}"></script>
 <script>
-	new DragAndDrop('address', 'Загрузите ваш адресс', '#drAndDradress');
+	new DragAndDrop('address', 'Загрузите ваш адрес', '#drAndDradress');
 
 	{% for key in blocks_key %}
 	new DragAndDrop('{{key.name}}', 'Загрузите ключ', '#drAndDr{{key.name}}');
