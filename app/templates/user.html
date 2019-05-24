@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% set main_info = data.get('main_info') %}
+{% set user_photo = main_info.get('user_photo') %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/parse_description.js') }}"></script>
+
+<div class="resume">
+	<div class="column column_small">
+		<div class="card card_center card_radius">
+			<div class="resume__element">
+				<div class="resume__photo">
+					{% if user_photo and Mage().get_path_to_image(address, user_photo) %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/' + Mage().get_path_to_image(address, user_photo)) }}" alt="User photo">
+					{% else %}
+					<img class="resume__photo-image" src="{{ url_for('static', filename='img/man.svg') }}" alt="User photo">
+					{% endif %}
+				</div>
+				{% if main_info.get('role') %}
+				<div class="resume__text resume__text_small resume__text_center">
+					{{ 'Компания' if main_info.get('role') == 1 else 'Пользователь' }}
+				</div>
+				<div class="resume__text resume__text_ellips resume__text_center">
+					{{ main_info.get('name') }}
+				</div>
+				{% endif %}
+			</div>
+			{% if data.get('public_info') %}
+			{% set public_info = data.get('public_info') %}
+			{% for name_info, info in public_info.items() %}
+			<div class="resume__element">
+				<h2 class="resume__subtitle">{{ info.get('title') }}</h2>
+				{% for name, row_item in info.get('props').items() %}
+				<div class="resume__row">
+					<div class="resume__row_label">{{ row_item.get('title') }}</div>
+					<div class="resume__row_value">
+						{% if row_item.get('value') %}
+							{% if row_item.get('description') %}
+								{{ row_item.get('description').get(row_item.get('value')) }}
+							{% else %}
+								{{ row_item.get('value') }}
+							{% endif %}
+						{% else %}
+						-
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="column column_medium">
+		<div class="card card_radius card_margin">
+			<h1 class="card__title">Обо мне</h1>
+			<div class="resume__card-body">
+				{% if not data.get('about_us') %}
+				<div class="resume__card_no-content">
+					<h3 class="resume__card_no-content_title">Информация отсутствует!</h3>
+				</div>
+				{% else %}
+				<div class="resume__card_about-us" id="aboutAs"></div>
+				<script>
+					new ParseDescription({
+						el: '#aboutAs',
+						obj: '{{ data['about_us'] }}'
+					})
+				</script>
+				{% endif %}
+			</div>
+		</div>
+		{% set sections = data.get('sections') %}
+		{% if sections %}
+		<div class="card card_center card_no-design">
+			<h1>Секции</h1>
+		</div>
+		<div class="card card_no-design" id="sectionInformation"></div>
+		<script src="{{ url_for('static', filename='js/parseSections.js') }}"></script>
+		<script>
+			let a = new ParseSections({
+				body: '#sectionInformation',
+				sections: '{{ sections }}'
+			});
+
+			console.log(a);
+		</script>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

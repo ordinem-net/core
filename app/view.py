@@ -4,12 +4,15 @@ from app.mage import Mage
 from const import const
 from essense.user import User
 from essense.secondary.fs.json_files import JsonFiles
+import os
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['POST', 'GET'])
+@app.route('/index', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html', name='index', sockets=True)
+    error = request.args.get('error')
+
+    return render_template('index.html', name='index', sockets=True, error=error)
 
 
 @app.route('/register')
@@ -101,7 +104,14 @@ def admin_edit(menu):
 
 @app.route('/profile/user/<path>')
 def user_profile(path):
-    pass
+    path_to_user_info = os.path.join(const.PATH_TO_BCH_USERS, path, const.PATH_TO_USER_INFO)
+
+    if not os.path.isfile(path_to_user_info):
+        return redirect(url_for('index', error='Данный пользователь не найден!'))
+
+    data = JsonFiles().get_json(path_to_user_info)
+
+    return render_template('user.html', name='user', data=data, address=data['id'])
 
 
 @app.errorhandler(404)

@@ -75,7 +75,7 @@ class User(ActionUser):
                     "props": {
                         "profession_name": {
                             "title": "Профессия",
-                            "value": ""
+                            "value": "web-developer"
                         }
                     }
                 }

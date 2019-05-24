@@ -26,6 +26,10 @@
 								<span class="user__info_item-name">Имя</span>
 								{{ user.get('name') }}
 							</p>
+							<p class="user__info_item">
+								<span class="user__info_item-name">Профессия</span>
+								{{ user.get('profession_name') or '-' }}
+							</p>
 						</div>
 						<div class="user__photo">
 							<div class="user__photo_image"></div>
@@ -35,9 +39,10 @@
 			</div>
 		</div>
 		{% else %}
-		<div class="card card_no-design">
+		<div class="card card_center card_no-design">
 			<h2 class="card__title">В данный момент резюме не найдены</h2>
 			<p class="card__text">Вы можете стать первым!!!</p>
+			<a href="{{ url_for('register') }}" class="user__register">Зарегистрироваться</a>
 		</div>
 		{% endif %}
 	</div>

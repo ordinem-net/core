@@ -4,6 +4,7 @@ from flask import request, redirect, url_for, jsonify
 from essense.secondary.fs.json_files import JsonFiles
 from essense.secondary.keys import Keys
 from essense.user import User
+from essense.secondary.transactions import Transactions
 import os
 
 
@@ -20,6 +21,8 @@ def todo_register():
     path_to_dir = User().create_user_dir(address)  # Создаем папку для пользователя
     JsonFiles().write_to_data(os.path.join(const.PATH_TO_BCH_USERS, path_to_dir, 'public_key.txt'), keys[0])  # Пишем туда ключ
     JsonFiles().set_json_in_file(os.path.join(const.PATH_TO_BCH_USERS, path_to_dir, const.PATH_TO_USER_INFO), data)
+
+    Transactions().new_transaction('new_user', data)
 
     return redirect(url_for('message', type='registration'))
 
