@@ -1,4 +1,5 @@
 from essense.secondary.keys import Keys
+from essense.secondary.network import Network
 from const import const
 import hashlib
 import rsa
@@ -30,7 +31,8 @@ class Transactions:
             'signature' : signature,
             'data' : data
         }
-        
+        message = Network().create_message(address,'transaction',transaction)
+        Network().send('127.0.0.1',const.PORT_USER,message)
         return transaction
 
 

@@ -1,5 +1,7 @@
 from essense.secondary.transactions import Transactions
 from essense.secondary.keys import Keys
+from essense.secondary.network import Network
+from const import const
 import time
 import hashlib
 import rsa
@@ -43,6 +45,9 @@ class Blockchain:
             'miner' : address,
             'signature' : signature
         }
+        
+        message = Network().create_message(address,'block',block)
+        Network().send('127.0.0.1',const.PORT_USER,message)
         
         return block
     
