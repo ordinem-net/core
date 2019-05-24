@@ -113,12 +113,14 @@ class ActionUser(object):
                         # address_update_user = self.__json__.get_prop(message, 'transaction.sender')
                         address_update_user = transaction["hash"]
 
-                        address_update_user_dir = hashlib.sha1((address_update_user).encode()).hexdigest()
+                        address_update_user_dir = self.get_dir_user(address_update_user)
                         print(address_update_user_dir)
                         # Не знаю как перезаписать, так что просто удоляю и создаю заново
-                        os.remove("../../data/blockchain/users/"+ address_update_user_dir+'/data.json')
-                        self.__files___.create_file("../../data/blockchain/users/"+address_update_user_dir+'/data.json')
-                        self.__json__.set_json_in_file("../../data/blockchain/users/"+address_update_user_dir+'/data.json', transaction["data"])
+
+                        self.__files___.write_to_data(
+                            os.path.join(const.PATH_TO_BCH_USERS, address_update_user_dir, const.PATH_TO_USER_INFO),
+                            transaction["data"]
+                        )
 
             else:
                 pass
