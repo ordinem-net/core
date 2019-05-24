@@ -30,7 +30,6 @@ class Const(object):
 
     PATH_TO_KEY_PUBLIC = os.path.join(PATH_TO_KEYS, 'public_key.txt')
     PATH_TO_KEY_PRIVATE = os.path.join(PATH_TO_KEYS, 'private_key.txt')
-    PATH_TO_BCH_RAW_TRANSACTION = os.path.join(PATH_TO_BCH, 'raw_transactions')
 
     """Файлы сети"""
     PATH_TO_BCH = os.path.join(PATH_TO_FILES, 'blockchain')

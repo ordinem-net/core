@@ -209,4 +209,12 @@ class ActionUser(object):
 
         return mass_hash
 
+    def get_ip(self):
+        data = self.__json__.get_json("../../data/IP/ip.json")
+        mass_ip = data["ip_address"]
 
+        return mass_ip
+
+
+ac_us = ActionUser()
+print(ac_us.get_ip())
