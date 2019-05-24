@@ -31,7 +31,7 @@ class Transactions:
             'signature' : signature,
             'data' : data
         }
-        message = Network().create_message(address,type,transaction)
+        message = Network().create_message(address,'transaction',transaction)
         Network().send('127.0.0.1',const.PORT_USER,message)
         return True
 
