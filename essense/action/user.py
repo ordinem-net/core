@@ -17,8 +17,6 @@ class ActionUser(object):
     __json__ = JsonFiles()
     __network__ = Network()
     __files___ = Files()
-    __transactions__ = Transactions()
-    __blockchain__ = Blockchain
     __directorys__ = Directory
     __keys__ = Keys
 
@@ -39,8 +37,7 @@ class ActionUser(object):
             transaction = self.__json__.get_prop(message, 'data')
 
             #TODO: Всё работает только если if True!!! Что то не так с проверкой транзакции
-            #if (self.__transactions__.verify_transaction(transaction))== True:
-            if True:
+            if (Transactions().verify_transaction(transaction))== True:
                 #Берём хеш транзакции и далее его хешируем
                 #Это используется для наименования файлов
                 transaction_hash = self.__json__.get_prop(message, 'data.hash')
@@ -65,7 +62,8 @@ class ActionUser(object):
 
             #TODO: Опять что то не так с проверкой
             #if (self.__blockchain__.check_block(block)) == True:
-            if True:
+            #if True:
+            if (Blockchain().check_block(block)) == True:
 
                 #Находим номер последнего элемента
                 str_mass = os.listdir('../../data/blockchain/blocks')
@@ -210,6 +208,5 @@ class ActionUser(object):
                     pass
 
         return mass_hash
-
 
 
