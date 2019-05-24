@@ -82,6 +82,10 @@ def todo_edit_profile():
 @app.route('/todo/edit_sections', methods=['GET', 'POST'])
 def todo_edit_section():
     data = request.json
+    print(data)
+    print(request.form)
+    print(request.data)
+
 
     user_info = User().get_this_user_info()
     user_info['sections'] = data
@@ -91,6 +95,14 @@ def todo_edit_section():
     JsonFiles().set_json_in_file(os.path.join(dir_user, const.PATH_TO_USER_INFO), user_info)
 
     # TODO сделай отправку обнвовления пользователя
+
+    return jsonify({'status': 'ok'})
+
+
+@app.route('/todo/edit_sections_file', methods=['GET', 'POST'])
+def todo_edit_section_files():
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
+    print(request.files)
 
     return jsonify({'status': 'ok'})
 

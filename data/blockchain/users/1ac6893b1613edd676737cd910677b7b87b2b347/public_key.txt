@@ -1,4 +1,0 @@
------BEGIN RSA PUBLIC KEY-----
-MEgCQQCjjkQfZUg6OULuBxcApDcI7UqkCtyYXl4gWG9Ntxb3hju8rD2DO22rGzf2
-KtpCjvz2bpJIHSHu8hRhiutqw0vXAgMBAAE=
------END RSA PUBLIC KEY-----

@@ -69,6 +69,15 @@ class User(ActionUser):
                             "value": ""
                         }
                     }
+                },
+                "profession": {
+                    "title": "Сфера деятельности",
+                    "props": {
+                        "profession_name": {
+                            "title": "Профессия",
+                            "value": ""
+                        }
+                    }
                 }
             },
             "about_us": {},
@@ -97,55 +106,6 @@ class User(ActionUser):
 
         if self.__json__.is_dir(path_to_dir):
             return self.__json__.get_json(os.path.join(path_to_dir, const.PATH_TO_USER_INFO))
-
-    def create_user_dir(self, address, count=0):
-        """
-        Метод для создания директории, в которой будет хранится вся информация о нужном пользователе
-        :param address: <str> адресс пользователя
-        :param count: <int> смещение адреса, на случай если директория уже имеется
-        :return: <str> имя созданной директории
-        """
-        map_users = {}
-
-        if not self.__json__.is_file(const.PATH_TO_BCH_USERS_MAP):
-            self.__json__.create_file(const.PATH_TO_BCH_USERS_MAP)
-        else:
-            map_users = self.__json__.get_json(const.PATH_TO_BCH_USERS_MAP)
-
-        if map_users.get(address):
-            return map_users.get(address)
-
-        hash_address = hashlib.sha1((address + str(count) if count else '').encode()).hexdigest()
-
-        for addr, key in map_users.items():
-            if key == hash_address:
-                count += 1
-                return self.create_user_dir(address, count)
-
-        map_users[address] = hash_address
-        self.__json__.set_json_in_file(const.PATH_TO_BCH_USERS_MAP, map_users)
-
-        path = os.path.join(const.PATH_TO_BCH_USERS, hash_address)
-        self.__json__.create_directory(path)
-
-        self.__json__.create_file(os.path.join(path, const.PATH_TO_USER_INFO))
-        self.__json__.create_directory(os.path.join(path, const.PATH_TO_USER_PART_FILES))
-        self.__json__.create_directory(os.path.join(path, const.PATH_TO_USER_BUILD_FILES))
-
-        return hash_address
-
-    def get_dir_user(self, address):
-        """
-        Метод получения имени директории, в которой лежим информация о пользователе
-        :param address: <str> адресс пользователя
-        :return: <str> путь к директории
-        """
-        map_users = self.__json__.get_json(const.PATH_TO_BCH_USERS_MAP)
-
-        if map_users.get(address):
-            return os.path.join(const.PATH_TO_BCH_USERS, map_users.get(address))
-        else:
-            return ''
 
     def __get_message(self, message):
         """Метод обработки всех пришедших сообщений"""

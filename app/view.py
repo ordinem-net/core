@@ -99,6 +99,11 @@ def admin_edit(menu):
                                data=data, address=data['id'], config=config)
 
 
+@app.route('/profile/user/<path>')
+def user_profile(path):
+    pass
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return redirect(url_for('index'))

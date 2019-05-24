@@ -194,7 +194,37 @@ class SectionManager {
     				console.log('ERROR send');
     				console.log(xhr.status + ': ' + xhr.statusText);
     				}
-  				})
+  				});
+
+  		// 		var formdata = new FormData();
+				// let filedata = document.querySelector('#a23');
+				// var i = 0, len = filedata.files.length, file;
+				// for (; i < len; i++) {
+    // 				file = filedata.files[i];
+    // 				formdata.append("file", file);
+				// }
+
+				// let xhr2 = new XMLHttpRequest();
+
+				// xhr2.open('POST', '/todo/edit_sections_file', true);
+				// console.log('a222222222');
+
+				// xhr2.send(formdata);
+				// xhr2.addEventListener('readystatechange', function(e) {
+				// 	if (xhr.readyState != 4) {
+				// 		return '';
+				// 	}
+
+    // 				if (xhr.status == 200) {
+    // 					console.log(xhr.readyState);
+    // 					console.log(xhr.responseText);
+    // 					alert('Обновления22222 успешно сохранены!');
+    // 				}
+    // 				else {
+    // 				console.log('ERROR22222 send');
+    // 				console.log(xhr.status + ': ' + xhr.statusText);
+    // 				}
+  		// 		});
 			});
 		}
 	}

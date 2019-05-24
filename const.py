@@ -37,6 +37,9 @@ class Const(object):
     PATH_TO_BCH_USERS = os.path.join(PATH_TO_BCH, 'users')  # Загруженная ранее информация о пользователях
     PATH_TO_BCH_USERS_MAP = os.path.join(PATH_TO_BCH_USERS, 'map.json')  # карта директорий для конкретных адресов
 
+    PATH_TO_BCH_BLOCKS = os.path.join(PATH_TO_BCH, 'blocks')
+    PATH_TO_BCH_RAW_TRANSACTION = os.path.join(PATH_TO_BCH, 'raw_transactions')
+
     """Файлы пользователя"""
     PATH_TO_USER_INFO = 'data.json'
     PATH_TO_USER_PART_FILES = 'files'  # Все куски, для этого пользователя, полученные на хранение

@@ -40,3 +40,27 @@ class Mage(object):
             JsonFiles().copy_file(name_file, directory, dir_to)
 
         return const.NAME_TMP + '/' + id_user + '/' + name_file
+
+    @staticmethod
+    def get_list_users():
+        dirs = os.listdir(const.PATH_TO_BCH_USERS)
+        list_users = []
+
+        for el in dirs:
+            path = os.path.join(const.PATH_TO_BCH_USERS, el)
+            if os.path.isdir(path):
+                data_path = os.path.join(path, const.PATH_TO_USER_INFO)
+
+                data = JsonFiles().get_json(data_path)
+
+                if JsonFiles().get_prop(data, 'main_info.role') == '0':
+                    list_users.append({
+                        "name": JsonFiles().get_prop(data, 'main_info.name'),
+                        "profession": JsonFiles().get_prop(
+                                        data,
+                                        'public_info.profession.props.profession_name.value'
+                        ),
+                        "path": el
+                    })
+
+        return list_users

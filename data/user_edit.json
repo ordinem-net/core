@@ -53,6 +53,14 @@
 				"maxlength": 50,
 				"placeholder": "your_email@gmail.com"
 			}
+		},
+		"profession_name": {
+			"type": "text",
+			"title": "Ваша профессия",
+			"default": "",
+			"attr": {
+				"maxlength": 50
+			}
 		}
 	}
 }
