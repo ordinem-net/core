@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\src",
+    "\\app\\src\\js",
+    "\\app\\templates",
+    "\\app\\templates\\base",
+    "\\app\\templates\\base\\modules",
+    "\\essense",
+    "\\essense\\action",
+    "\\essense\\secondary"
+  ],
+  "SelectedNode": "\\app\\src\\gulpfile.js",
+  "PreviewInSolutionExplorer": false
+}

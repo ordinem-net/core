@@ -25,7 +25,7 @@
 				</div>
 				{% if main_info.get('role') %}
 				<div class="resume__text resume__text_small resume__text_center">
-					{{ 'Компания' if main_info.get('role') == 1 else 'Пользователь' }}
+					{{ 'Компания' if main_info.get('role') == '1' else 'Пользователь' }}
 				</div>
 				<div class="resume__text resume__text_ellips resume__text_center">
 					{{ main_info.get('name') }}
@@ -36,6 +36,11 @@
 				<a href="{{ url_for('admin_edit', menu='public_info') }}" class="resume__button resume__button_max-width">
 					Редактировать профиль</a>
 			</div>
+			{% if main_info.get('role') == '1' %}
+			<div class="resume__element">
+				<a href="" class="resume__button resume__button_max-width">Подтвердить достижения</a>
+			</div>
+			{% endif %}
 			{% if data.get('public_info') %}
 			{% set public_info = data.get('public_info') %}
 			{% for name_info, info in public_info.items() %}

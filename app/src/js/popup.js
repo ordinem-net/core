@@ -7,7 +7,8 @@ class Popup {
 		description: undefined,
 		data: {
 			name: '',
-			description: []
+			description: [],
+			files: []
 		}
 	}
 
