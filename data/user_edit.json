@@ -9,7 +9,8 @@
 			"title": "Ваше имя",
 			"default": "",
 			"attr": {
-				"maxlength": 50
+				"maxlength": 50,
+				"placeholder": "Your name"
 			}
 		},
 		"user_photo": {
@@ -22,8 +23,8 @@
 			"title": "Ваш возраст",
 			"default": "",
 			"attr": {
-				"max": 130,
-				"min": 10
+				"max": 100,
+				"min": 16
 			}
 		},
 		"gender": {
@@ -34,6 +35,24 @@
 				{"title": "Мужской", "value": "m"},
 				{"title": "Женский", "value": "w"}
 			]
+		},
+		"phone": {
+			"type": "text",
+			"title": "Ваш телефон",
+			"default": "",
+			"attr": {
+				"maxlength": 50,
+				"placeholder": "+7 (...) - .. - .."
+			}
+		},
+		"email": {
+			"type": "text",
+			"title": "Ваша почта",
+			"default": "",
+			"attr": {
+				"maxlength": 50,
+				"placeholder": "your_email@gmail.com"
+			}
 		}
 	}
 }

@@ -79,6 +79,22 @@ def todo_edit_profile():
     return jsonify({'status': 'ok'})
 
 
+@app.route('/todo/edit_sections', methods=['GET', 'POST'])
+def todo_edit_section():
+    data = request.json
+
+    user_info = User().get_this_user_info()
+    user_info['sections'] = data
+
+    dir_user = User().get_dir_user(user_info['id'])
+    JsonFiles().set_json_in_file(const.PATH_TO_DATA, user_info)
+    JsonFiles().set_json_in_file(os.path.join(dir_user, const.PATH_TO_USER_INFO), user_info)
+
+    # TODO сделай отправку обнвовления пользователя
+
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/todo/update_user_photo/<type>', methods=['GET', 'POST'])
 def todo_update_photo(type):
     if type == 'update':
@@ -102,6 +118,14 @@ def todo_update_photo(type):
         # TODO: Сделай отправку транзакции в сеть
 
     return jsonify({'status': 'ok'})
+
+
+@app.route('/todo/exit')
+def todo_exit():
+    if JsonFiles().is_file(const.PATH_TO_DATA):
+        JsonFiles().clear_file(const.PATH_TO_DATA)
+
+    return redirect(url_for('index'))
 
 
 def get_users(address, data):

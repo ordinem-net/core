@@ -28,17 +28,26 @@ class ParseDescription {
 		let block = document.createElement('div');
 		block.classList = 'about-us-block';
 
-		console.log(obj);
-		obj.forEach(el => {
-			const elem = this.#createElement(el);
+		if (!obj.length) {
+			block.innerHTML = this.#createBanner();
+		} else {
+			obj.forEach(el => {
+				const elem = this.#createElement(el);
 
-			if (elem) {
-				block.appendChild(elem);
-			}
-		});
+				if (elem) {
+					block.appendChild(elem);
+				}
+			});
+		}
 
 		el.appendChild(block);
 	}
+
+	#createBanner = () => `
+			<h2 class="section-body__title section-body__title_center">Секция пустая!</h2>
+			<p class="section-body__text section-body__text_center">Добавьте ей описания</p>
+			<p class="section-body__text section-body__text_center">Чтобы стало понятно, какое это ваше личное достижение</p>
+		`;
 
 	#createElement = elem => {
 		const data = elem.data;
@@ -70,7 +79,7 @@ class ParseDescription {
 
 	#createHeader = data => {
 		let p = document.createElement(`h${data.level}`);
-		p.classList = `section-body__title section-body__title_${ata.level}`;
+		p.classList = `section-body__title section-body__title_${data.level}`;
 
 		p.innerHTML = data.text;
 

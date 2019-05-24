@@ -67,18 +67,10 @@ class Section {
 		section.querySelector('.js-sectionTitle').innerHTML = this.state.name;
 		section.querySelector('.js-sectionBody').innerHTML = '';
 
-		if (this.state.description.length) {
-			new ParseDescription({
+		new ParseDescription({
 				el: section.querySelector('.js-sectionBody'),
 				obj: this.state.description
 			});
-		} else {
-			section.querySelector('.js-sectionBody').innerHTML = `
-				<h2 class="section-body__title section-body__title_center">Секция пустая!</h2>
-				<p class="section-body__text section-body__text_center">Добавьте ей описания</p>
-				<p class="section-body__text section-body__text_center">Чтобы стало понятно, какое это ваше личное достижение</p>
-			`;
-		}
 	}
 }
 
@@ -111,12 +103,12 @@ class SectionManager {
 		this.state.add_action = this.#getBlock(action_add);
 		this.state.save_bth = this.#getBlock(save);
 
+		if (typeof sections == 'string') {
+			sections = fixJsObj(sections);
+		}
+
 		sections.forEach(section => {
-			if (typeof section == 'string') {
-				this.state.sectionsData.push(fixJsObj(section))
-			} else {
-				this.state.sectionsData.push(section);
-			}
+			this.state.sectionsData.push(section);
 		});
 
 		if (this.state.add_action) {
@@ -159,10 +151,11 @@ class SectionManager {
 		}
 
 		if (this.state.sectionsData.length) {
-			let special_id = 0;
+			let special_id = -1;
+
 			this.state.sectionsData.forEach(el => {
-				let section = new Section(el, this.state.sections.length, special_id, this);
 				special_id += 1;
+				let section = new Section(el, this.state.sections.length, special_id, this);
 
 				this.state.sections.push(section);
 				this.state.body.appendChild(section.state.section);
@@ -179,29 +172,31 @@ class SectionManager {
 			this.#appendBanner();
 			this.state.save_bth.style.display = 'none';
 		}
-	}
 
-	#getBlock = elem => {
-		return elem ? typeof elem == 'object' ? elem : 
-			typeof elem == 'string' ? document.querySelector(elem) : undefined : undefined;
-	}
+		if (this.state.save_bth) {
+			this.state.save_bth.addEventListener('click', () => {
+				let xhr = new XMLHttpRequest();
 
-	#appendBanner = () => {
-		let banner = document.createElement('div');
+				xhr.open('POST', '/todo/edit_sections', true);
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send(JSON.stringify(this.state.sectionsData));
 
-		banner.classList = 'card card_radius card_center';
-		banner.style.height = '300px';
+				xhr.addEventListener('readystatechange', function(e) {
+					if (xhr.readyState != 4) {
+						return '';
+					}
 
-		banner.innerHTML = `
-		<h3 class="resume__card_no-content_title">
-			В данный момент секции с информацией отсутсвуют
-		</h3>
-		<p class="resume__card_no-content_text">Создайте новую карточку</p>
-		<p class="resume__card_no-content_text">Опишите свои навыки и умения</p>`;
-
-		this.state.banner = banner;
-
-		this.state.body.appendChild(banner);
+    				if (xhr.status == 200) {
+    					console.log(xhr.responseText);
+    					alert('Обновления успешно сохранены!');
+    				}
+    				else {
+    				console.log('ERROR send');
+    				console.log(xhr.status + ': ' + xhr.statusText);
+    				}
+  				})
+			});
+		}
 	}
 
 	showPopup = (id, el) => {
@@ -230,9 +225,15 @@ class SectionManager {
 		this.state.sectionsData[action_id] = data;
 		sections[action_id].update(data);
 
+		console.log('!11111!!!!!');
+
 		let special_id = sections[action_id].state.special_id;
 
+		console.log(data);
+
 		nav.querySelector(`#linkToSection${special_id}`).innerHTML = data.name;
+
+		console.log('a2222');
 
 		this.state.action_id = -1;
 	}
@@ -284,5 +285,28 @@ class SectionManager {
 			this.#appendBanner();
 			this.state.save_bth.style.display = 'none';
 		}
+	}
+
+	#getBlock = elem => {
+		return elem ? typeof elem == 'object' ? elem : 
+			typeof elem == 'string' ? document.querySelector(elem) : undefined : undefined;
+	}
+
+	#appendBanner = () => {
+		let banner = document.createElement('div');
+
+		banner.classList = 'card card_radius card_center';
+		banner.style.height = '300px';
+
+		banner.innerHTML = `
+		<h3 class="resume__card_no-content_title">
+			В данный момент секции с информацией отсутсвуют
+		</h3>
+		<p class="resume__card_no-content_text">Создайте новую карточку</p>
+		<p class="resume__card_no-content_text">Опишите свои навыки и умения</p>`;
+
+		this.state.banner = banner;
+
+		this.state.body.appendChild(banner);
 	}
 }

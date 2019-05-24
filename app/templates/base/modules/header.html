@@ -21,6 +21,10 @@
         {% endfor %}
 
         {% if Mage().action_user() %}
+            <a
+                class="header__link"
+                href="{{ url_for('todo_exit') }}"
+            >Выход</a>
             {% if name == 'admin' %}
                 <div class="header__link header__link_admin" id="iconAdmin">
                     <img

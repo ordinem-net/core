@@ -98,6 +98,12 @@ input:-webkit-autofill:active {
 	box-sizing: border-box;
 	padding-top: @heder_heigth + 20px;
 	background-color: rgb(250, 250, 250);
+
+	&__body {
+		width: 1200px;
+		max-width: 90%;
+		margin: auto;
+	}
 }
 
 .error {
@@ -167,6 +173,100 @@ input:-webkit-autofill:active {
 		display: flex;
 		justify-content: center;
 	}
+}
+
+.card {
+	margin-top: 10px;
+	width: 100%;
+	height: min-content;
+	padding: 20px;
+	box-sizing: border-box;
+	background-color: #fff;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.12);
+
+	&__title {
+		text-align: center;
+		font-weight: bold;
+		font-size: 28px;
+		letter-spacing: 3px;
+		color: #4a4a4a;
+		margin-bottom: 20px;
+		line-height: 40px;
+		border-bottom: 2px solid #D3D3D3FF;
+		width: 100%;
+	}
+
+	&__body {
+		margin-top: 50px;
+		width: 70%;
+	}
+
+	&_radius {
+		border-radius: 10px;
+	}
+
+	&_center {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&_align-center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&_margin {
+		margin-bottom: 20px;
+	}
+
+	&_flex {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	&_no-padding {
+		padding: 20px 0;
+
+		.resume__subtitle {
+			padding-left: 20px;
+		}
+	}
+
+	&_no-design {
+		background-color: transparent;
+		box-shadow: none;
+	}
+}
+
+.column {
+	margin-bottom: 50px;
+
+	&_small {
+		width: 27%;
+
+		&-block {
+			margin-bottom: 10px;
+		}
+	}
+
+	&_medium {
+		width: 72%;
+	}
+
+	&_big {
+		width: 100%;
+		margin-bottom: 0;
+	}
+}
+
+.search {
+	width: 90%;
+	height: 40px;
 }
 
 .js-dragAndDrop {

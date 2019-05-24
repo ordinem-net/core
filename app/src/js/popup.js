@@ -114,7 +114,7 @@ class Popup {
 			}
 
 			parent.updateSection(data);
-
+			
 			this.state.data = data;
 			this.hide();
 		}).catch((error) => {
@@ -127,6 +127,11 @@ class Popup {
 
 		popup.querySelector('#popupClose').addEventListener('click', this.hide);
 		popup.querySelector('#popupAction').addEventListener('click', this.#save);
+		popup.querySelector('#popupNameSection').addEventListener('keydown', e => {
+			if (e.code == 'Enter') {
+				this.#save();
+			}
+		});
 	}
 
 	#createDescriptionBlock = () => {

@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block content %}
+<script src="{{ url_for('static', filename='js/parse_description.js') }}"></script>
+
 <div class="resume">
 	<div class="column column_small">
 		<div class="card card_center card_radius">
@@ -74,7 +76,6 @@
 				</div>
 				{% else %}
 				<div class="resume__card_about-us" id="aboutAs"></div>
-				<script src="{{ url_for('static', filename='js/parse_description.js') }}"></script>
 				<script>
 					new ParseDescription({
 						el: '#aboutAs',
@@ -84,12 +85,26 @@
 				{% endif %}
 			</div>
 		</div>
-		{% for section in data['sections'] %}
-		<div class="card card_radius card_margin"></div>
-		{% endfor %}
+		{% set sections = data.get('sections') %}
+		{% if sections %}
+		<div class="card card_center card_no-design">
+			<h1>Секции</h1>
+		</div>
+		<div class="card card_no-design" id="sectionInformation"></div>
+		<script src="{{ url_for('static', filename='js/parseSections.js') }}"></script>
+		<script>
+			let a = new ParseSections({
+				body: '#sectionInformation',
+				sections: '{{ sections }}'
+			});
+
+			console.log(a);
+		</script>
+		{% else %}
 		<div class="card card_center card_no-design">
 			<a href="{{ url_for('admin_edit', menu='section') }}" class="resume__button">Редактировать секции</a>
 		</div>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

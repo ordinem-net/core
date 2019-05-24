@@ -56,6 +56,19 @@ class User(ActionUser):
                             }
                         }
                     }
+                },
+                "contact_info": {
+                    "title": "Контактнная информация",
+                    "props": {
+                        "phone": {
+                            "title": "Телефон",
+                            "value": ""
+                        },
+                        "email": {
+                            "title": "Почта",
+                            "value": ""
+                        }
+                    }
                 }
             },
             "about_us": {},

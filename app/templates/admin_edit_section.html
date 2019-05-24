@@ -80,9 +80,10 @@
 		nav: '#navigationSection',
 		action_add: '#addNewSection',
 		save: '#saveSections',
-		sections: []
+		sections: "{{data.get('sections')}}"
 	});
 
 	console.log(a);
+	console.log("{{data.get('sections')}}")
 </script>
 {% endblock %}
