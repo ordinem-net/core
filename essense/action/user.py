@@ -48,11 +48,13 @@ class ActionUser(object):
                 # Кто нибудь помогите с путями!!!
 
                 # Создаём файл
-                path_transaction = const.PATH_TO_BCH_RAW_TRANSACTION + '/' + name_file_transaction +'.json'
+                hash = self.create_user_dir(transaction["data"]["id"])
+                path_transaction = os.path.join(const.PATH_TO_BCH_USERS, hash, const.PATH_TO_USER_INFO)
+                # path_transaction = const.PATH_TO_BCH_RAW_TRANSACTION + '/' + name_file_transaction +'.json'
                 self.__files___.create_file(path_transaction)
 
                 # Записываем транзакцию в файл
-                self.__json__.set_json_in_file(path_transaction, transaction)
+                self.__json__.set_json_in_file(path_transaction, transaction["data"])
 
             else:
                 pass
