@@ -47,7 +47,7 @@ class Blockchain:
         }
         
         message = Network().create_message(address,'block',block)
-        Network().send('127.0.0.1',const.PORT_USER,message)
+        Network().send('10.131.54.139',const.PORT_USER,message)
         
         return block
     
