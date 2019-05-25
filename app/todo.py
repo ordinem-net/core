@@ -79,7 +79,7 @@ def todo_edit_profile():
         user_info_new
     )
 
-    Transactions().new_transaction('update', data)
+    Transactions().new_transaction('update', user_info_new)
 
     return jsonify({'status': 'ok'})
 
