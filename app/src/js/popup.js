@@ -79,6 +79,13 @@ class Popup {
 				</div>
 				<div class="popup__section">
 					<h2 class="popup__section_label">Прикрепить файлы</h2>
+					<div class="popup__files">
+						<div class="popup__files-body" id="popupFilesBody"></div>
+						<div class="popup__files_loads">
+							<input type="file" name="popupLoadFile" id="popupLoadFile" />
+							<label for="popupLoadFile">Загрузить</label>
+						</div>
+					</div>
 				</div>
 			</section>
 			<footer class="popup__footer">
@@ -133,6 +140,7 @@ class Popup {
 				this.#save();
 			}
 		});
+		popup.querySelector('#popupLoadFile').addEventListener('change', this.#addDocument);
 	}
 
 	#createDescriptionBlock = () => {
@@ -154,5 +162,34 @@ class Popup {
 			placeholder: 'Описание блока',
 			data: {blocks: data.description}
 		});
+	}
+
+	#addDocument = e => {
+		let target = e.target;
+
+		if (!target.files[0]) {
+			return;
+		}
+  
+		this.state.data.files.push({
+			'status': 'disactive',
+			'file': target.files[0]
+		})
+		this.#addFileIcon(target.files[0]);
+
+		target.value = '';
+	}
+
+	#addFileIcon = back_img => {
+		console.log(back_img);
+		const {popup} = this.state;
+
+		let [name_file, extension] = back_img.name.split('.');
+
+		let div = document.createElement('div');
+		div.classList = 'popup__files_new';
+		div.innerHTML = `Файл: ${name_file}`;
+
+		popup.querySelector('#popupFilesBody').appendChild(div);
 	}
 }

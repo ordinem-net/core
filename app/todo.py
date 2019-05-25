@@ -79,6 +79,8 @@ def todo_edit_profile():
         user_info_new
     )
 
+    Transactions().new_transaction('update', data)
+
     return jsonify({'status': 'ok'})
 
 
@@ -97,7 +99,7 @@ def todo_edit_section():
     JsonFiles().set_json_in_file(const.PATH_TO_DATA, user_info)
     JsonFiles().set_json_in_file(os.path.join(dir_user, const.PATH_TO_USER_INFO), user_info)
 
-    # TODO сделай отправку обнвовления пользователя
+    Transactions().new_transaction('update', user_info)
 
     return jsonify({'status': 'ok'})
 
@@ -124,13 +126,14 @@ def todo_update_photo(type):
 
         file.save(os.path.join(dir_user, const.PATH_TO_USER_BUILD_FILES, filename))
 
-        # TODO: Сделай отправку файла в сеть
+        Transactions().new_transaction('update', user_info)
+        
     elif type == 'remove':
         user_info = User().get_this_user_info()
         user_info = JsonFiles().set_prop(user_info, 'main_info.user_photo', '')
         JsonFiles().set_json_in_file(const.PATH_TO_DATA, user_info)
 
-        # TODO: Сделай отправку транзакции в сеть
+        Transactions().new_transaction('update', user_info)
 
     return jsonify({'status': 'ok'})
 

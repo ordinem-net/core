@@ -1,1 +1,22 @@
-"use strict";var HTMLSpechialChar={"&#39;":'"',"&lt;":"<","&gt;":">","&guot;":'"',"&#x2F;":"/","nbsp;":" ","&amp;":""};function fixJsObj(a){var r=a;for(var e in console.log(a),HTMLSpechialChar)r=r.replace(new RegExp(e,"g"),HTMLSpechialChar[e]);return JSON.parse(r)}
+"use strict";
+
+var HTMLSpechialChar = {
+  '&#39;': '\"',
+  '&lt;': '\<',
+  '&gt;': '\>',
+  '&guot;': '\"',
+  '&#x2F;': '\/',
+  'nbsp;': ' ',
+  '&amp;': ''
+};
+
+function fixJsObj(str) {
+  var fix_obj_str = str;
+  console.log(str);
+
+  for (var el in HTMLSpechialChar) {
+    fix_obj_str = fix_obj_str.replace(new RegExp(el, 'g'), HTMLSpechialChar[el]);
+  }
+
+  return JSON.parse(fix_obj_str);
+}

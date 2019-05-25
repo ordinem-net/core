@@ -1,1 +1,117 @@
-"use strict";for(var bth=document.querySelector("#redactionUser"),form=document.querySelector("#formUser"),inp_number=document.querySelectorAll('input[type="number"].jsInputForm'),i=0;i<inp_number.length;i++)inp_number[i].addEventListener("blur",function(e){var t=e.target;+t.value<+t.min&&(t.value=t.min),+t.value>+t.max&&(t.value=t.max)});bth.addEventListener("click",function(){editor.save().then(function(e){getForm([{name:"about_us",value:e.blocks}])}).catch(function(e){alert("Saving failed: ",e)})});var getForm=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t={type:global_edit_name};e&&e.forEach(function(e){var a=e.name,n=e.value;t[a]=n});for(var a=form.querySelectorAll(".jsInputForm"),n=0;n<a.length;n++){var r=a[n].parentNode.dataset.name;switch(a[n].type){case"text":t[r]||(t[r]={}),t[r][a[n].name]=a[n].value;break;case"radio":t[r]||(t[r]={}),a[n].checked&&(t[r][a[n].name]=a[n].value);break;case"number":if(!a[n].value)break;t[r]||(t[r]={}),+a[n].value<+a[n].min?t[r][a[n].name]=a[n].min:+a[n].value>+a[n].max?t[r][a[n].name]=a[n].max:t[r][a[n].name]=+a[n].value}}sendMessage("/todo/edit_profile",t)},sendMessage=function(e,t){var a=new XMLHttpRequest;a.open("POST",e,!0),a.setRequestHeader("Content-type","application/json"),a.send(JSON.stringify(t)),a.onreadystatechange=function(){4==a.readyState&&(200!=a.status?console.log(a.status+": "+a.statusText):(alert("Ваши изменения сохранены. Они в ближайшее время будут доступны всем."),console.log(a.responseText)))}};
+'use strict';
+
+var bth = document.querySelector('#redactionUser');
+var form = document.querySelector('#formUser');
+var inp_number = document.querySelectorAll('input[type="number"].jsInputForm');
+
+for (var i = 0; i < inp_number.length; i++) {
+  inp_number[i].addEventListener('blur', function (_ref) {
+    var target = _ref.target;
+
+    if (+target.value < +target.min) {
+      target.value = target.min;
+    }
+
+    if (+target.value > +target.max) {
+      target.value = target.max;
+    }
+  });
+}
+
+bth.addEventListener('click', function () {
+  editor.save().then(function (outputData) {
+    getForm([{
+      name: 'about_us',
+      value: outputData.blocks
+    }]);
+  })["catch"](function (error) {
+    alert('Saving failed: ', error);
+  });
+});
+
+var getForm = function getForm() {
+  var prevData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var data = {
+    type: global_edit_name
+  };
+
+  if (prevData) {
+    prevData.forEach(function (_ref2) {
+      var name = _ref2.name,
+          value = _ref2.value;
+      data[name] = value;
+    });
+  }
+
+  var inputs = form.querySelectorAll('.jsInputForm');
+
+  for (var _i = 0; _i < inputs.length; _i++) {
+    var name = inputs[_i].parentNode.dataset.name;
+
+    switch (inputs[_i].type) {
+      case 'text':
+        {
+          if (!data[name]) {
+            data[name] = {};
+          }
+
+          data[name][inputs[_i].name] = inputs[_i].value;
+          break;
+        }
+
+      case 'radio':
+        {
+          if (!data[name]) {
+            data[name] = {};
+          }
+
+          if (inputs[_i].checked) {
+            data[name][inputs[_i].name] = inputs[_i].value;
+          }
+
+          break;
+        }
+
+      case 'number':
+        {
+          if (!inputs[_i].value) {
+            break;
+          }
+
+          if (!data[name]) {
+            data[name] = {};
+          }
+
+          if (+inputs[_i].value < +inputs[_i].min) {
+            data[name][inputs[_i].name] = inputs[_i].min;
+          } else if (+inputs[_i].value > +inputs[_i].max) {
+            data[name][inputs[_i].name] = inputs[_i].max;
+          } else {
+            data[name][inputs[_i].name] = +inputs[_i].value;
+          }
+
+          break;
+        }
+    }
+  }
+
+  sendMessage('/todo/edit_profile', data);
+};
+
+var sendMessage = function sendMessage(path, data) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', path, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.send(JSON.stringify(data));
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState != 4) return;
+
+    if (xhr.status != 200) {
+      console.log(xhr.status + ': ' + xhr.statusText);
+    } else {
+      alert('Ваши изменения сохранены. Они в ближайшее время будут доступны всем.');
+      console.log(xhr.responseText);
+    }
+  };
+};

@@ -1,1 +1,345 @@
-"use strict";function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function _classPrivateFieldLooseBase(t,e){if(!Object.prototype.hasOwnProperty.call(t,e))throw new TypeError("attempted to use private field on non-instance");return t}var id=0;function _classPrivateFieldLooseKey(t){return"__private_"+id+++"_"+t}var Section=function t(e,s,n,a){var o=this,i=e.name,c=e.description;_classCallCheck(this,t),this.state={name:"",description:[],id:0,special_id:0,section:void 0,parent:void 0},Object.defineProperty(this,_createBlock,{writable:!0,value:function(){var t=o.state,e=t.name,s=t.description,n=t.parent,a=t.id,i=t.special_id,c=document.createElement("div");return c.classList="card card_radius card_margin card_no-padding",c.id="section".concat(i),c.style.padding="0",c.innerHTML='\n\t\t\t<header class="section__header">\n\t\t\t\t<div class="section__title js-sectionTitle">'.concat(e||"",'</div>\n\t\t\t\t<div class="section__header_action">\n\t\t\t\t\t<button class="section__header_bth js-changeSection">Изменить</button>\n\t\t\t\t\t<button class="section__header_bth js-removeSection">Удалить</button>\n\t\t\t\t</div>\n\t\t\t</header>\n\t\t\t<section class="section__body js-sectionBody"></section>\n\t\t'),s.length?new ParseDescription({el:c.querySelector(".js-sectionBody"),obj:s}):c.querySelector(".js-sectionBody").innerHTML='\n\t\t\t\t<h2 class="section-body__title section-body__title_center">Секция пустая!</h2>\n\t\t\t\t<p class="section-body__text section-body__text_center">Добавьте ей описания</p>\n\t\t\t\t<p class="section-body__text section-body__text_center">Чтобы стало понятно, какое это ваше личное достижение</p>\n\t\t\t',c.querySelector(".js-changeSection").addEventListener("click",function(){return n.showPopup(a,o.state.section)}),c.querySelector(".js-removeSection").addEventListener("click",function(){return n.removeSection(a,o.state.section)}),c}}),this.update=function(t){o.state.name=t.name||o.state.name,o.state.description=t.description||o.state.description;var e=o.state.section;e.querySelector(".js-sectionTitle").innerHTML=o.state.name,e.querySelector(".js-sectionBody").innerHTML="",new ParseDescription({el:e.querySelector(".js-sectionBody"),obj:o.state.description})},this.state.name=i,this.state.description=c,this.state.id=s,this.state.parent=a,this.state.special_id=n,this.state.section=_classPrivateFieldLooseBase(this,_createBlock)[_createBlock]()},_createBlock=_classPrivateFieldLooseKey("createBlock"),SectionManager=function t(e){var s=this,n=e.body,a=e.action_add,o=e.nav,i=e.sections,c=e.save;if(_classCallCheck(this,t),this.state={body:void 0,add_action:void 0,nav:void 0,banner:void 0,sectionsData:[],popup:void 0,sections:[],save_bth:void 0,action_id:-1},this.showPopup=function(t,e){for(var n=s.state,a=n.popup,o=n.sections,i=-1,c=0;c<o.length;c++)if(o[c].state.section==e){i=c;break}var r=s.state.sectionsData[i];s.state.action_id=i,a.update(r),a.show()},this.updateSection=function(t){var e=s.state,n=e.action_id,a=e.sections,o=e.nav;s.state.sectionsData[n]=t,a[n].update(t),console.log("!11111!!!!!");var i=a[n].state.special_id;console.log(t),o.querySelector("#linkToSection".concat(i)).innerHTML=t.name,console.log("a2222"),s.state.action_id=-1},this.removeSection=function(t,e){var n=s.state,a=n.body,o=n.sections,i=n.nav;if(confirm("Вы уверены, что хотите удалить данную секцию?")){for(var c=-1,r=0;r<o.length;r++)if(o[r].state.section==e){c=r;break}var l=o[c].state.special_id,d=i.querySelector("#linkToSection".concat(l));i.removeChild(d),a.removeChild(o[c].state.section),s.state.sections.splice(c,1),s.state.sectionsData.splice(c,1),s.state.sections.length||(_classPrivateFieldLooseBase(s,_appendBanner)[_appendBanner](),s.state.save_bth.style.display="none")}},this.removeLastSection=function(){var t=s.state,e=t.body,n=t.sections,a=t.nav,o=n.length-1,i=n[o].state.special_id,c=a.querySelector("#linkToSection".concat(i));a.removeChild(c),e.removeChild(n[o].state.section),s.state.sections.splice(o,1),s.state.sectionsData.splice(o,1),s.state.sections.length||(_classPrivateFieldLooseBase(s,_appendBanner)[_appendBanner](),s.state.save_bth.style.display="none")},Object.defineProperty(this,_getBlock,{writable:!0,value:function(t){return t?"object"==_typeof(t)?t:"string"==typeof t?document.querySelector(t):void 0:void 0}}),Object.defineProperty(this,_appendBanner,{writable:!0,value:function(){var t=document.createElement("div");t.classList="card card_radius card_center",t.style.height="300px",t.innerHTML='\n\t\t<h3 class="resume__card_no-content_title">\n\t\t\tВ данный момент секции с информацией отсутсвуют\n\t\t</h3>\n\t\t<p class="resume__card_no-content_text">Создайте новую карточку</p>\n\t\t<p class="resume__card_no-content_text">Опишите свои навыки и умения</p>',s.state.banner=t,s.state.body.appendChild(t)}}),this.state.popup=new Popup(this),this.state.body=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](n),this.state.nav=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](o),this.state.add_action=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](a),this.state.save_bth=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](c),"string"==typeof i&&(i=fixJsObj(i)),i.forEach(function(t){s.state.sectionsData.push(t)}),this.state.add_action&&this.state.add_action.addEventListener("click",function(){var t=s.state.popup;s.state.banner&&(s.state.banner.parentNode.removeChild(s.state.banner),s.state.banner=void 0),s.state.save_bth.style.display="";var e={name:"",description:[]},n=0;s.state.sections.length&&(n=s.state.sections[s.state.sections.length-1].state.special_id+1);var a=new Section(e,s.state.sections.length,n,s);s.state.sections.push(a),s.state.sectionsData.push(e),s.state.body.appendChild(a.state.section),s.state.action_id=s.state.sections.length-1;var o=document.createElement("a");o.classList="navigation__item",o.id="linkToSection".concat(n),o.href="#section".concat(n),s.state.nav.appendChild(o),t.update(e),t.show()}),this.state.sectionsData.length){var r=-1;this.state.sectionsData.forEach(function(t){r+=1;var e=new Section(t,s.state.sections.length,r,s);s.state.sections.push(e),s.state.body.appendChild(e.state.section);var n=document.createElement("a");n.classList="navigation__item",n.id="linkToSection".concat(r),n.href="#section".concat(r),n.innerHTML=t.name,s.state.nav.appendChild(n)})}else _classPrivateFieldLooseBase(this,_appendBanner)[_appendBanner](),this.state.save_bth.style.display="none";this.state.save_bth&&this.state.save_bth.addEventListener("click",function(){var t=new XMLHttpRequest;t.open("POST","/todo/edit_sections",!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify(s.state.sectionsData)),t.addEventListener("readystatechange",function(e){if(4!=t.readyState)return"";200==t.status?(console.log(t.responseText),alert("Обновления успешно сохранены!")):(console.log("ERROR send"),console.log(t.status+": "+t.statusText))})})},_getBlock=_classPrivateFieldLooseKey("getBlock"),_appendBanner=_classPrivateFieldLooseKey("appendBanner");
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+
+var id = 0;
+
+function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+
+var Section = function Section(_ref, _id, _special_id, _parent) {
+  var _this = this;
+
+  var _name = _ref.name,
+      _description = _ref.description;
+
+  _classCallCheck(this, Section);
+
+  this.state = {
+    name: '',
+    description: [],
+    id: 0,
+    special_id: 0,
+    section: undefined,
+    parent: undefined
+  };
+  Object.defineProperty(this, _createBlock, {
+    writable: true,
+    value: function value() {
+      var _this$state = _this.state,
+          name = _this$state.name,
+          description = _this$state.description,
+          parent = _this$state.parent,
+          id = _this$state.id,
+          special_id = _this$state.special_id;
+      var section = document.createElement('div');
+      section.classList = 'card card_radius card_margin card_no-padding';
+      section.id = "section".concat(special_id);
+      section.style.padding = '0';
+      section.innerHTML = "\n\t\t\t<header class=\"section__header\">\n\t\t\t\t<div class=\"section__title js-sectionTitle\">".concat(name || '', "</div>\n\t\t\t\t<div class=\"section__header_action\">\n\t\t\t\t\t<button class=\"section__header_bth js-changeSection\">\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C</button>\n\t\t\t\t\t<button class=\"section__header_bth js-removeSection\">\u0423\u0434\u0430\u043B\u0438\u0442\u044C</button>\n\t\t\t\t</div>\n\t\t\t</header>\n\t\t\t<section class=\"section__body js-sectionBody\"></section>\n\t\t");
+
+      if (description.length) {
+        new ParseDescription({
+          el: section.querySelector('.js-sectionBody'),
+          obj: description
+        });
+      } else {
+        section.querySelector('.js-sectionBody').innerHTML = "\n\t\t\t\t<h2 class=\"section-body__title section-body__title_center\">\u0421\u0435\u043A\u0446\u0438\u044F \u043F\u0443\u0441\u0442\u0430\u044F!</h2>\n\t\t\t\t<p class=\"section-body__text section-body__text_center\">\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0435\u0439 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u044F</p>\n\t\t\t\t<p class=\"section-body__text section-body__text_center\">\u0427\u0442\u043E\u0431\u044B \u0441\u0442\u0430\u043B\u043E \u043F\u043E\u043D\u044F\u0442\u043D\u043E, \u043A\u0430\u043A\u043E\u0435 \u044D\u0442\u043E \u0432\u0430\u0448\u0435 \u043B\u0438\u0447\u043D\u043E\u0435 \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u0435</p>\n\t\t\t";
+      }
+
+      section.querySelector('.js-changeSection').addEventListener('click', function () {
+        return parent.showPopup(id, _this.state.section);
+      });
+      section.querySelector('.js-removeSection').addEventListener('click', function () {
+        return parent.removeSection(id, _this.state.section);
+      });
+      return section;
+    }
+  });
+
+  this.update = function (data) {
+    _this.state.name = data.name || _this.state.name;
+    _this.state.description = data.description || _this.state.description;
+    var section = _this.state.section;
+    section.querySelector('.js-sectionTitle').innerHTML = _this.state.name;
+    section.querySelector('.js-sectionBody').innerHTML = '';
+    new ParseDescription({
+      el: section.querySelector('.js-sectionBody'),
+      obj: _this.state.description
+    });
+  };
+
+  this.state.name = _name;
+  this.state.description = _description;
+  this.state.id = _id;
+  this.state.parent = _parent;
+  this.state.special_id = _special_id;
+  this.state.section = _classPrivateFieldLooseBase(this, _createBlock)[_createBlock]();
+};
+
+var _createBlock = _classPrivateFieldLooseKey("createBlock");
+
+var SectionManager = function SectionManager(_ref2) {
+  var _this2 = this;
+
+  var _body = _ref2.body,
+      action_add = _ref2.action_add,
+      _nav = _ref2.nav,
+      _sections = _ref2.sections,
+      save = _ref2.save;
+
+  _classCallCheck(this, SectionManager);
+
+  this.state = {
+    body: undefined,
+    add_action: undefined,
+    nav: undefined,
+    banner: undefined,
+    sectionsData: [],
+    popup: undefined,
+    sections: [],
+    save_bth: undefined,
+    action_id: -1
+  };
+
+  this.showPopup = function (id, el) {
+    var _this2$state = _this2.state,
+        popup = _this2$state.popup,
+        sections = _this2$state.sections;
+    var id_new = -1;
+
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].state.section == el) {
+        id_new = i;
+        break;
+      }
+    }
+
+    var info_section = _this2.state.sectionsData[id_new];
+    _this2.state.action_id = id_new;
+    popup.update(info_section);
+    popup.show();
+  };
+
+  this.updateSection = function (data) {
+    var _this2$state2 = _this2.state,
+        action_id = _this2$state2.action_id,
+        sections = _this2$state2.sections,
+        nav = _this2$state2.nav;
+    _this2.state.sectionsData[action_id] = data;
+    sections[action_id].update(data);
+    console.log('!11111!!!!!');
+    var special_id = sections[action_id].state.special_id;
+    console.log(data);
+    nav.querySelector("#linkToSection".concat(special_id)).innerHTML = data.name;
+    console.log('a2222');
+    _this2.state.action_id = -1;
+  };
+
+  this.removeSection = function (id, el) {
+    var _this2$state3 = _this2.state,
+        body = _this2$state3.body,
+        sections = _this2$state3.sections,
+        nav = _this2$state3.nav;
+
+    if (confirm('Вы уверены, что хотите удалить данную секцию?')) {
+      var id_new = -1;
+
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].state.section == el) {
+          id_new = i;
+          break;
+        }
+      }
+
+      var special_id = sections[id_new].state.special_id;
+      var nav_el = nav.querySelector("#linkToSection".concat(special_id));
+      nav.removeChild(nav_el);
+      body.removeChild(sections[id_new].state.section);
+
+      _this2.state.sections.splice(id_new, 1);
+
+      _this2.state.sectionsData.splice(id_new, 1);
+
+      if (!_this2.state.sections.length) {
+        _classPrivateFieldLooseBase(_this2, _appendBanner)[_appendBanner]();
+
+        _this2.state.save_bth.style.display = 'none';
+      }
+    }
+  };
+
+  this.removeLastSection = function () {
+    var _this2$state4 = _this2.state,
+        body = _this2$state4.body,
+        sections = _this2$state4.sections,
+        nav = _this2$state4.nav;
+    var id = sections.length - 1;
+    var special_id = sections[id].state.special_id;
+    var nav_el = nav.querySelector("#linkToSection".concat(special_id));
+    nav.removeChild(nav_el);
+    body.removeChild(sections[id].state.section);
+
+    _this2.state.sections.splice(id, 1);
+
+    _this2.state.sectionsData.splice(id, 1);
+
+    if (!_this2.state.sections.length) {
+      _classPrivateFieldLooseBase(_this2, _appendBanner)[_appendBanner]();
+
+      _this2.state.save_bth.style.display = 'none';
+    }
+  };
+
+  Object.defineProperty(this, _getBlock, {
+    writable: true,
+    value: function value(elem) {
+      return elem ? _typeof(elem) == 'object' ? elem : typeof elem == 'string' ? document.querySelector(elem) : undefined : undefined;
+    }
+  });
+  Object.defineProperty(this, _appendBanner, {
+    writable: true,
+    value: function value() {
+      var banner = document.createElement('div');
+      banner.classList = 'card card_radius card_center';
+      banner.style.height = '300px';
+      banner.innerHTML = "\n\t\t<h3 class=\"resume__card_no-content_title\">\n\t\t\t\u0412 \u0434\u0430\u043D\u043D\u044B\u0439 \u043C\u043E\u043C\u0435\u043D\u0442 \u0441\u0435\u043A\u0446\u0438\u0438 \u0441 \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0435\u0439 \u043E\u0442\u0441\u0443\u0442\u0441\u0432\u0443\u044E\u0442\n\t\t</h3>\n\t\t<p class=\"resume__card_no-content_text\">\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u0443\u044E \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443</p>\n\t\t<p class=\"resume__card_no-content_text\">\u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u0441\u0432\u043E\u0438 \u043D\u0430\u0432\u044B\u043A\u0438 \u0438 \u0443\u043C\u0435\u043D\u0438\u044F</p>";
+      _this2.state.banner = banner;
+
+      _this2.state.body.appendChild(banner);
+    }
+  });
+  this.state.popup = new Popup(this);
+  this.state.body = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](_body);
+  this.state.nav = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](_nav);
+  this.state.add_action = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](action_add);
+  this.state.save_bth = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](save);
+
+  if (typeof _sections == 'string') {
+    _sections = fixJsObj(_sections);
+  }
+
+  _sections.forEach(function (section) {
+    _this2.state.sectionsData.push(section);
+  });
+
+  if (this.state.add_action) {
+    this.state.add_action.addEventListener('click', function () {
+      var popup = _this2.state.popup;
+
+      if (_this2.state.banner) {
+        _this2.state.banner.parentNode.removeChild(_this2.state.banner);
+
+        _this2.state.banner = undefined;
+      }
+
+      _this2.state.save_bth.style.display = '';
+      var data = {
+        name: '',
+        description: [],
+        files: []
+      };
+      var special_id = 0;
+
+      if (_this2.state.sections.length) {
+        special_id = _this2.state.sections[_this2.state.sections.length - 1].state.special_id + 1;
+      }
+
+      var new_section = new Section(data, _this2.state.sections.length, special_id, _this2);
+
+      _this2.state.sections.push(new_section);
+
+      _this2.state.sectionsData.push(data);
+
+      _this2.state.body.appendChild(new_section.state.section);
+
+      _this2.state.action_id = _this2.state.sections.length - 1;
+      var nav_item = document.createElement('a');
+      nav_item.classList = 'navigation__item';
+      nav_item.id = "linkToSection".concat(special_id);
+      nav_item.href = "#section".concat(special_id);
+
+      _this2.state.nav.appendChild(nav_item);
+
+      popup.update(data);
+      popup.show();
+    });
+  }
+
+  if (this.state.sectionsData.length) {
+    var special_id = -1;
+    this.state.sectionsData.forEach(function (el) {
+      special_id += 1;
+      var section = new Section(el, _this2.state.sections.length, special_id, _this2);
+
+      _this2.state.sections.push(section);
+
+      _this2.state.body.appendChild(section.state.section);
+
+      var nav_item = document.createElement('a');
+      nav_item.classList = 'navigation__item';
+      nav_item.id = "linkToSection".concat(special_id);
+      nav_item.href = "#section".concat(special_id);
+      nav_item.innerHTML = el.name;
+
+      _this2.state.nav.appendChild(nav_item);
+    });
+  } else {
+    _classPrivateFieldLooseBase(this, _appendBanner)[_appendBanner]();
+
+    this.state.save_bth.style.display = 'none';
+  }
+
+  if (this.state.save_bth) {
+    this.state.save_bth.addEventListener('click', function () {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/todo/edit_sections', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(_this2.state.sectionsData));
+      xhr.addEventListener('readystatechange', function (e) {
+        if (xhr.readyState != 4) {
+          return '';
+        }
+
+        if (xhr.status == 200) {
+          console.log(xhr.responseText);
+          alert('Обновления успешно сохранены!');
+        } else {
+          console.log('ERROR send');
+          console.log(xhr.status + ': ' + xhr.statusText);
+        }
+      }); // 		var formdata = new FormData();
+      // let filedata = document.querySelector('#a23');
+      // var i = 0, len = filedata.files.length, file;
+      // for (; i < len; i++) {
+      // 				file = filedata.files[i];
+      // 				formdata.append("file", file);
+      // }
+      // let xhr2 = new XMLHttpRequest();
+      // xhr2.open('POST', '/todo/edit_sections_file', true);
+      // console.log('a222222222');
+      // xhr2.send(formdata);
+      // xhr2.addEventListener('readystatechange', function(e) {
+      // 	if (xhr.readyState != 4) {
+      // 		return '';
+      // 	}
+      // 				if (xhr.status == 200) {
+      // 					console.log(xhr.readyState);
+      // 					console.log(xhr.responseText);
+      // 					alert('Обновления22222 успешно сохранены!');
+      // 				}
+      // 				else {
+      // 				console.log('ERROR22222 send');
+      // 				console.log(xhr.status + ': ' + xhr.statusText);
+      // 				}
+      // 		});
+    });
+  }
+};
+
+var _getBlock = _classPrivateFieldLooseKey("getBlock");
+
+var _appendBanner = _classPrivateFieldLooseKey("appendBanner");

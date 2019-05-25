@@ -1,1 +1,64 @@
-.drag-and-drop-form{width:100%;height:80px;background-color:#bcf;-webkit-border-radius:20px;border-radius:20px;border:2px dashed transparent;-webkit-transition:.5s;-o-transition:.5s;transition:.5s}.drag-and-drop-form:hover:not(.drag-and-drop__action),.drag-and-drop__highlight{border:2px dashed #222;background-color:#38f;-webkit-box-shadow:0 7px 14px rgba(0,0,0,.15),0 5px 5px rgba(0,0,0,.12);box-shadow:0 7px 14px rgba(0,0,0,.15),0 5px 5px rgba(0,0,0,.12)}.drag-and-drop__action{border:2px dashed #222;background-color:#fff}.drag-and-drop-form:hover:not(.drag-and-drop__action) .drag-and-drop__label,.drag-and-drop__highlight .drag-and-drop__label{color:#fff}.drag-and-drop__action .drag-and-drop__label{color:#22dc75ff;cursor:default}.drag-and-drop__label{width:100%;height:100%;font-size:18px;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;color:#66d;font-weight:700;cursor:pointer;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:5px;-webkit-transition:.5s;-o-transition:.5s;transition:.5s}.drag-and-drop__remove .drag-and-drop__label{color:#b00;cursor:pointer}
+.drag-and-drop-form {
+  width: 100%;
+  height: 80px;
+  background-color: #BCF;
+  -webkit-border-radius: 20px;
+          border-radius: 20px;
+  border: 2px dashed transparent;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+.drag-and-drop__highlight,
+.drag-and-drop-form:hover:not(.drag-and-drop__action) {
+  border: 2px dashed #222;
+  background-color: #38F;
+  -webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15), 0 5px 5px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15), 0 5px 5px rgba(0, 0, 0, 0.12);
+}
+.drag-and-drop__action {
+  border: 2px dashed #222;
+  background-color: #fff;
+}
+.drag-and-drop__highlight .drag-and-drop__label,
+.drag-and-drop-form:hover:not(.drag-and-drop__action) .drag-and-drop__label {
+  color: #fff;
+}
+.drag-and-drop__action .drag-and-drop__label {
+  color: #22DC75FF;
+  cursor: default;
+}
+.drag-and-drop__label {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #66D;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+.drag-and-drop__remove .drag-and-drop__label {
+  color: #b00;
+  cursor: pointer;
+}

@@ -127,8 +127,56 @@
 			background-color: @color_darkblue;
 		}
 	}
+
+	&__files {
+		display: flex;
+		flex-wrap: wrap;
+
+		&_new {
+			width: 120px;
+			height: 160px;
+			background-color: #999;
+			margin-bottom: 20px;
+			margin-right: 10px;
+			border-radius: 20px;
+			border: 2px solid transparent;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+		}
+
+		&-body {
+			display: flex;
+		}
+	}
 }
 
 .cdx-block {
 	padding: 3px 0;
+}
+
+input[name="popupLoadFile"] {
+	display: none;
+}
+
+label[for="popupLoadFile"] {
+	margin: 5px;
+	display: flex;
+	cursor: pointer;
+	background-color: @color_blue;
+	width: 120px;
+	height: 160px;
+	border-radius: 20px;
+	justify-content: center;
+	align-items: center;
+	transition: .5s;
+	border: 2px solid transparent;
+	color: #fff;
+	font-size: 16px;
+
+	&:hover {
+		background-color: @color_darkblue;
+		border: 2px dashed #fff;
+	}
 }

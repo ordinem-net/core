@@ -122,7 +122,7 @@ class SectionManager {
 
 				this.state.save_bth.style.display = '';
 
-				const data = {name: '', description: []};
+				const data = {name: '', description: [], files: []};
 
 				let special_id = 0;
 				if (this.state.sections.length) {

@@ -1,1 +1,228 @@
-"use strict";function _typeof(e){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _defineProperties(e,t){for(var a=0;a<t.length;a++){var o=t[a];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function _createClass(e,t,a){return t&&_defineProperties(e.prototype,t),a&&_defineProperties(e,a),e}function _classPrivateFieldLooseBase(e,t){if(!Object.prototype.hasOwnProperty.call(e,t))throw new TypeError("attempted to use private field on non-instance");return e}var id=0;function _classPrivateFieldLooseKey(e){return"__private_"+id+++"_"+e}var LoadImage=function(){function e(){var t=this,a=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{action:void 0,blocks_load:void 0,path:"",status:!1,default_image:""};_classCallCheck(this,e),this.state={conf:{action:void 0,blocks_load:void 0,path:"",status:!1,default_image:""},action:void 0,blocks_load:void 0,default_src:[]},this.sendMessage=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"update",a=(arguments.length>1&&arguments[1],new XMLHttpRequest),o="/todo/update_user_photo/".concat(e);switch(a.open("POST",o,!0),e){case"update":var s=t.state.action.querySelector("#formUpdateUserImage"),i=new FormData(s);a.send(i);break;case"remove":a.send()}a.addEventListener("readystatechange",function(e){if(4!=a.readyState)return"";200==a.status?(console.log("IMAGE UPDATE"),console.log(a.responseText)):(console.log("ERROR send"),console.log(a.status+": "+a.statusText))})},Object.defineProperty(this,_getBlock,{writable:!0,value:function(e){return e?"object"==_typeof(e)?e:"string"==typeof e?document.querySelectorAll(e):void 0:void 0}}),Object.defineProperty(this,_getDefaultSrc,{writable:!0,value:function(){for(var e=t.state.blocks_load,a=0;a<e.length;a++)t.state.default_src.push(e[a].src)}}),Object.defineProperty(this,_createAction,{writable:!0,value:function(){var e=t.state.conf.status,a=t.state.action,o=document.createElement("form");o.action="#",o.id="formUpdateUserImage";var s='\n\t\t\t\t<input type="file" id="inpFileLoad" name="action_load_file"\n\t\t\t\t\taccept="image/x-png,image/gif,image/jpeg" style="display: none" />\n\t\t\t\t<label for="inpFileLoad" class="user__bth user__bth_action user__bth_margin">\n\t\t\t\t\t'.concat(e?"Изменить":"Добавить","\n\t\t\t\t</label>\n\t\t\t");if(o.innerHTML=s,a.appendChild(o),e){var i=document.createElement("button");i.classList="user__bth user__bth_remove user__bth_margin",i.id="inpFileRemove",i.innerHTML="Удалить",a.appendChild(i)}_classPrivateFieldLooseBase(t,_createEvents)[_createEvents](a)}}),Object.defineProperty(this,_createEvents,{writable:!0,value:function(e){var a=e.querySelector("#inpFileLoad"),o=e.querySelector("#inpFileRemove");a.addEventListener("change",function(e){var a=e.target.files[0],o=new FileReader;o.readAsDataURL(a),o.onloadend=function(){_classPrivateFieldLooseBase(this,_updateImage)[_updateImage](o.result),this.sendMessage("update",e.target.files[0]),_classPrivateFieldLooseBase(this,_clearAction)[_clearAction](),this.state.conf.status=!0,_classPrivateFieldLooseBase(this,_createAction)[_createAction]()}.bind(t)}),o&&o.addEventListener("click",function(){_classPrivateFieldLooseBase(t,_remove)[_remove]()})}}),Object.defineProperty(this,_updateImage,{writable:!0,value:function(e){for(var a=t.state.blocks_load,o=0;o<a.length;o++)a[o].src=e}}),Object.defineProperty(this,_clearAction,{writable:!0,value:function(){t.state.action.innerHTML=""}}),Object.defineProperty(this,_remove,{writable:!0,value:function(){for(var e=t.state,a=e.blocks_load,o=e.default_src,s=0;s<a.length;s++)a[s].src!=o[s]?a[s].src=o[s]:a[s].src=t.state.conf.default_image;_classPrivateFieldLooseBase(t,_clearAction)[_clearAction](),t.state.conf.status=!1,_classPrivateFieldLooseBase(t,_createAction)[_createAction](),t.sendMessage("remove")}}),this.state.conf=Object.assign(this.state.conf,a),this.init(a.action,a.blocks_load)}return _createClass(e,[{key:"init",value:function(e,t){this.state.action=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](e)[0],this.state.blocks_load=_classPrivateFieldLooseBase(this,_getBlock)[_getBlock](t),_classPrivateFieldLooseBase(this,_getDefaultSrc)[_getDefaultSrc](),_classPrivateFieldLooseBase(this,_createAction)[_createAction]()}}]),e}(),_getBlock=_classPrivateFieldLooseKey("getBlock"),_getDefaultSrc=_classPrivateFieldLooseKey("getDefaultSrc"),_createAction=_classPrivateFieldLooseKey("createAction"),_createEvents=_classPrivateFieldLooseKey("createEvents"),_updateImage=_classPrivateFieldLooseKey("updateImage"),_clearAction=_classPrivateFieldLooseKey("clearAction"),_remove=_classPrivateFieldLooseKey("remove");
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+
+var id = 0;
+
+function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+
+var LoadImage =
+/*#__PURE__*/
+function () {
+  function LoadImage() {
+    var _this = this;
+
+    var conf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+      action: undefined,
+      blocks_load: undefined,
+      path: '',
+      status: false,
+      default_image: ''
+    };
+
+    _classCallCheck(this, LoadImage);
+
+    this.state = {
+      conf: {
+        action: undefined,
+        blocks_load: undefined,
+        path: '',
+        status: false,
+        default_image: ''
+      },
+      action: undefined,
+      blocks_load: undefined,
+      default_src: []
+    };
+
+    this.sendMessage = function () {
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'update';
+      var file = arguments.length > 1 ? arguments[1] : undefined;
+      var xhr = new XMLHttpRequest();
+      var url = "/todo/update_user_photo/".concat(type);
+      xhr.open('POST', url, true);
+
+      switch (type) {
+        case 'update':
+          {
+            var action = _this.state.action;
+            var form = action.querySelector('#formUpdateUserImage');
+            var formData = new FormData(form);
+            xhr.send(formData);
+            break;
+          }
+
+        case 'remove':
+          {
+            xhr.send();
+            break;
+          }
+      }
+
+      xhr.addEventListener('readystatechange', function (e) {
+        if (xhr.readyState != 4) {
+          return '';
+        }
+
+        if (xhr.status == 200) {
+          console.log('IMAGE UPDATE');
+          console.log(xhr.responseText);
+        } else {
+          console.log('ERROR send');
+          console.log(xhr.status + ': ' + xhr.statusText);
+        }
+      });
+    };
+
+    Object.defineProperty(this, _getBlock, {
+      writable: true,
+      value: function value(elem) {
+        return elem ? _typeof(elem) == 'object' ? elem : typeof elem == 'string' ? document.querySelectorAll(elem) : undefined : undefined;
+      }
+    });
+    Object.defineProperty(this, _getDefaultSrc, {
+      writable: true,
+      value: function value() {
+        var blocks_load = _this.state.blocks_load;
+
+        for (var i = 0; i < blocks_load.length; i++) {
+          _this.state.default_src.push(blocks_load[i].src);
+        }
+      }
+    });
+    Object.defineProperty(this, _createAction, {
+      writable: true,
+      value: function value() {
+        var status = _this.state.conf.status;
+        var action = _this.state.action;
+        var block_action = document.createElement('form');
+        block_action.action = '#';
+        block_action.id = 'formUpdateUserImage';
+        var block_action_child = "\n\t\t\t\t<input type=\"file\" id=\"inpFileLoad\" name=\"action_load_file\"\n\t\t\t\t\taccept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none\" />\n\t\t\t\t<label for=\"inpFileLoad\" class=\"user__bth user__bth_action user__bth_margin\">\n\t\t\t\t\t".concat(status ? 'Изменить' : 'Добавить', "\n\t\t\t\t</label>\n\t\t\t");
+        block_action.innerHTML = block_action_child;
+        action.appendChild(block_action);
+
+        if (status) {
+          var action_remove = document.createElement('button');
+          action_remove.classList = 'user__bth user__bth_remove user__bth_margin';
+          action_remove.id = 'inpFileRemove';
+          action_remove.innerHTML = 'Удалить';
+          action.appendChild(action_remove);
+        }
+
+        _classPrivateFieldLooseBase(_this, _createEvents)[_createEvents](action);
+      }
+    });
+    Object.defineProperty(this, _createEvents, {
+      writable: true,
+      value: function value(block) {
+        var inp = block.querySelector('#inpFileLoad');
+        var remove = block.querySelector('#inpFileRemove');
+        inp.addEventListener('change', function (e) {
+          var file = e.target.files[0];
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+
+          reader.onloadend = function () {
+            _classPrivateFieldLooseBase(this, _updateImage)[_updateImage](reader.result);
+
+            this.sendMessage('update', e.target.files[0]); //TODO: отправь на сервер
+
+            _classPrivateFieldLooseBase(this, _clearAction)[_clearAction]();
+
+            this.state.conf.status = true;
+
+            _classPrivateFieldLooseBase(this, _createAction)[_createAction]();
+          }.bind(_this);
+        });
+
+        if (remove) {
+          remove.addEventListener('click', function () {
+            _classPrivateFieldLooseBase(_this, _remove)[_remove]();
+          });
+        }
+      }
+    });
+    Object.defineProperty(this, _updateImage, {
+      writable: true,
+      value: function value(src) {
+        var blocks_load = _this.state.blocks_load;
+
+        for (var i = 0; i < blocks_load.length; i++) {
+          blocks_load[i].src = src;
+        }
+      }
+    });
+    Object.defineProperty(this, _clearAction, {
+      writable: true,
+      value: function value() {
+        var action = _this.state.action;
+        action.innerHTML = '';
+      }
+    });
+    Object.defineProperty(this, _remove, {
+      writable: true,
+      value: function value() {
+        var _this$state = _this.state,
+            blocks_load = _this$state.blocks_load,
+            default_src = _this$state.default_src;
+
+        for (var i = 0; i < blocks_load.length; i++) {
+          if (blocks_load[i].src != default_src[i]) {
+            blocks_load[i].src = default_src[i];
+          } else {
+            blocks_load[i].src = _this.state.conf.default_image;
+          }
+        }
+
+        _classPrivateFieldLooseBase(_this, _clearAction)[_clearAction]();
+
+        _this.state.conf.status = false;
+
+        _classPrivateFieldLooseBase(_this, _createAction)[_createAction]();
+
+        _this.sendMessage('remove');
+      }
+    });
+    this.state.conf = Object.assign(this.state.conf, conf);
+    this.init(conf.action, conf.blocks_load);
+  }
+
+  _createClass(LoadImage, [{
+    key: "init",
+    value: function init(action, blocks_load) {
+      this.state.action = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](action)[0];
+      this.state.blocks_load = _classPrivateFieldLooseBase(this, _getBlock)[_getBlock](blocks_load);
+
+      _classPrivateFieldLooseBase(this, _getDefaultSrc)[_getDefaultSrc]();
+
+      _classPrivateFieldLooseBase(this, _createAction)[_createAction]();
+    }
+  }]);
+
+  return LoadImage;
+}();
+
+var _getBlock = _classPrivateFieldLooseKey("getBlock");
+
+var _getDefaultSrc = _classPrivateFieldLooseKey("getDefaultSrc");
+
+var _createAction = _classPrivateFieldLooseKey("createAction");
+
+var _createEvents = _classPrivateFieldLooseKey("createEvents");
+
+var _updateImage = _classPrivateFieldLooseKey("updateImage");
+
+var _clearAction = _classPrivateFieldLooseKey("clearAction");
+
+var _remove = _classPrivateFieldLooseKey("remove");
+
+;

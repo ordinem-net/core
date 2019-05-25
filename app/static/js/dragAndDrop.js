@@ -1,1 +1,174 @@
-"use strict";function _typeof(e){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _classPrivateFieldLooseBase(e,t){if(!Object.prototype.hasOwnProperty.call(e,t))throw new TypeError("attempted to use private field on non-instance");return e}var id=0;function _classPrivateFieldLooseKey(e){return"__private_"+id+++"_"+e}var DragAndDrop=function e(t,r,o){var a=this;_classCallCheck(this,e),this.state={el:void 0,form:void 0,action:!1,message:""},this.init=function(e,t,r){a.state.el=r?"object"==_typeof(r)?r:"string"==typeof r?document.querySelector(r):void 0:void 0,a.state.form=_classPrivateFieldLooseBase(a,_createForm)[_createForm](e,t),a.state.message=t},Object.defineProperty(this,_createForm,{writable:!0,value:function(e,t){var r=document.createElement("div");r.classList="drag-and-drop-form",r.innerHTML='\n\t\t\t\t<input type="file" name="'.concat(e,'" id="drAndDrp').concat(e,'" class="js-dragAndDrop" multiple />\n    \t\t\t<label class="drag-and-drop__label" for="drAndDrp').concat(e,'">').concat(t,"</label>\n\t\t\t"),r.addEventListener("change",_classPrivateFieldLooseBase(a,_changeFormForActionInp)[_changeFormForActionInp],!1);var o=r.querySelector("label");return o.addEventListener("mouseover",_classPrivateFieldLooseBase(a,_showRemoveFiles)[_showRemoveFiles],!1),o.addEventListener("mouseout",_classPrivateFieldLooseBase(a,_unshowRemoveFiles)[_unshowRemoveFiles],!1),o.addEventListener("click",_classPrivateFieldLooseBase(a,_removeFiles)[_removeFiles],!1),r}}),Object.defineProperty(this,_createEvents,{writable:!0,value:function(){var e=a.state.el;["dragenter","dragover","dragleave","drop"].forEach(function(t){e.addEventListener(t,_classPrivateFieldLooseBase(a,_preventDefaults)[_preventDefaults],!1)}),["dragenter","dragover"].forEach(function(t){e.addEventListener(t,_classPrivateFieldLooseBase(a,_highlight)[_highlight],!1)}),["dragleave","drop"].forEach(function(t){e.addEventListener(t,_classPrivateFieldLooseBase(a,_unhighlight)[_unhighlight],!1)}),e.addEventListener("drop",_classPrivateFieldLooseBase(a,_handleDrop)[_handleDrop],!1)}}),Object.defineProperty(this,_preventDefaults,{writable:!0,value:function(e){e.preventDefault(),e.stopPropagation()}}),Object.defineProperty(this,_highlight,{writable:!0,value:function(e){var t=a.state.form;t.classList.add("drag-and-drop__highlight"),t.querySelector("label").innerHTML="Отпустите файл!"}}),Object.defineProperty(this,_unhighlight,{writable:!0,value:function(e){var t=a.state,r=t.form,o=t.message;r.classList.remove("drag-and-drop__highlight"),r.querySelector("label").innerHTML=o}}),Object.defineProperty(this,_handleDrop,{writable:!0,value:function(e){var t=a.state.form,r=e.dataTransfer.files;t.querySelector('input[type="file"]').files=r,_classPrivateFieldLooseBase(a,_changeFormForActionInp)[_changeFormForActionInp]()}}),Object.defineProperty(this,_changeFormForActionInp,{writable:!0,value:function(){var e=a.state.form;a.state.action=!0,e.classList.add("drag-and-drop__action"),e.querySelector("label").innerHTML="Файл Загружен!"}}),Object.defineProperty(this,_removeFiles,{writable:!0,value:function(e){var t=a.state,r=t.action,o=t.form,i=t.message;r&&(o.classList.remove("drag-and-drop__remove"),o.classList.remove("drag-and-drop__action"),o.querySelector("label").innerHTML=i,o.querySelector('input[type="file"]').value="",a.state.action=!1,e.preventDefault())}}),Object.defineProperty(this,_showRemoveFiles,{writable:!0,value:function(){var e=a.state,t=e.action,r=e.form;t&&(r.classList.add("drag-and-drop__remove"),r.querySelector("label").innerHTML="Удалить файл")}}),Object.defineProperty(this,_unshowRemoveFiles,{writable:!0,value:function(){var e=a.state,t=e.action,r=e.form;t&&(r.classList.remove("drag-and-drop__remove"),r.querySelector("label").innerHTML="Файл Загружен!")}}),this.init(t,r,o),this.state.el.appendChild(this.state.form),_classPrivateFieldLooseBase(this,_createEvents)[_createEvents]()},_createForm=_classPrivateFieldLooseKey("createForm"),_createEvents=_classPrivateFieldLooseKey("createEvents"),_preventDefaults=_classPrivateFieldLooseKey("preventDefaults"),_highlight=_classPrivateFieldLooseKey("highlight"),_unhighlight=_classPrivateFieldLooseKey("unhighlight"),_handleDrop=_classPrivateFieldLooseKey("handleDrop"),_changeFormForActionInp=_classPrivateFieldLooseKey("changeFormForActionInp"),_removeFiles=_classPrivateFieldLooseKey("removeFiles"),_showRemoveFiles=_classPrivateFieldLooseKey("showRemoveFiles"),_unshowRemoveFiles=_classPrivateFieldLooseKey("unshowRemoveFiles");
+'use strict';
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+
+var id = 0;
+
+function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+
+var DragAndDrop = function DragAndDrop(_name, _message, _elem) {
+  var _this = this;
+
+  _classCallCheck(this, DragAndDrop);
+
+  this.state = {
+    el: undefined,
+    form: undefined,
+    action: false,
+    message: ''
+  };
+
+  this.init = function (name, message, elem) {
+    _this.state.el = elem ? _typeof(elem) == 'object' ? elem : typeof elem == 'string' ? document.querySelector(elem) : undefined : undefined;
+    _this.state.form = _classPrivateFieldLooseBase(_this, _createForm)[_createForm](name, message);
+    _this.state.message = message;
+  };
+
+  Object.defineProperty(this, _createForm, {
+    writable: true,
+    value: function value(name, message) {
+      var el = document.createElement('div');
+      el.classList = 'drag-and-drop-form';
+      el.innerHTML = "\n\t\t\t\t<input type=\"file\" name=\"".concat(name, "\" id=\"drAndDrp").concat(name, "\" class=\"js-dragAndDrop\" multiple />\n    \t\t\t<label class=\"drag-and-drop__label\" for=\"drAndDrp").concat(name, "\">").concat(message, "</label>\n\t\t\t");
+      el.addEventListener('change', _classPrivateFieldLooseBase(_this, _changeFormForActionInp)[_changeFormForActionInp], false);
+      var label = el.querySelector('label');
+      label.addEventListener('mouseover', _classPrivateFieldLooseBase(_this, _showRemoveFiles)[_showRemoveFiles], false);
+      label.addEventListener('mouseout', _classPrivateFieldLooseBase(_this, _unshowRemoveFiles)[_unshowRemoveFiles], false);
+      label.addEventListener('click', _classPrivateFieldLooseBase(_this, _removeFiles)[_removeFiles], false);
+      return el;
+    }
+  });
+  Object.defineProperty(this, _createEvents, {
+    writable: true,
+    value: function value() {
+      var el = _this.state.el;
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (eventName) {
+        el.addEventListener(eventName, _classPrivateFieldLooseBase(_this, _preventDefaults)[_preventDefaults], false);
+      });
+      ['dragenter', 'dragover'].forEach(function (eventName) {
+        el.addEventListener(eventName, _classPrivateFieldLooseBase(_this, _highlight)[_highlight], false);
+      });
+      ['dragleave', 'drop'].forEach(function (eventName) {
+        el.addEventListener(eventName, _classPrivateFieldLooseBase(_this, _unhighlight)[_unhighlight], false);
+      });
+      el.addEventListener('drop', _classPrivateFieldLooseBase(_this, _handleDrop)[_handleDrop], false);
+    }
+  });
+  Object.defineProperty(this, _preventDefaults, {
+    writable: true,
+    value: function value(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+  Object.defineProperty(this, _highlight, {
+    writable: true,
+    value: function value(e) {
+      var form = _this.state.form;
+      form.classList.add('drag-and-drop__highlight');
+      form.querySelector('label').innerHTML = 'Отпустите файл!';
+    }
+  });
+  Object.defineProperty(this, _unhighlight, {
+    writable: true,
+    value: function value(e) {
+      var _this$state = _this.state,
+          form = _this$state.form,
+          message = _this$state.message;
+      form.classList.remove('drag-and-drop__highlight');
+      form.querySelector('label').innerHTML = message;
+    }
+  });
+  Object.defineProperty(this, _handleDrop, {
+    writable: true,
+    value: function value(e) {
+      var form = _this.state.form;
+      var dt = e.dataTransfer;
+      var files = dt.files;
+      form.querySelector('input[type="file"]').files = files;
+
+      _classPrivateFieldLooseBase(_this, _changeFormForActionInp)[_changeFormForActionInp]();
+    }
+  });
+  Object.defineProperty(this, _changeFormForActionInp, {
+    writable: true,
+    value: function value() {
+      var form = _this.state.form;
+      _this.state.action = true;
+      form.classList.add('drag-and-drop__action');
+      form.querySelector('label').innerHTML = 'Файл Загружен!';
+    }
+  });
+  Object.defineProperty(this, _removeFiles, {
+    writable: true,
+    value: function value(e) {
+      var _this$state2 = _this.state,
+          action = _this$state2.action,
+          form = _this$state2.form,
+          message = _this$state2.message;
+
+      if (action) {
+        form.classList.remove('drag-and-drop__remove');
+        form.classList.remove('drag-and-drop__action');
+        form.querySelector('label').innerHTML = message;
+        form.querySelector('input[type="file"]').value = '';
+        _this.state.action = false;
+        e.preventDefault();
+      }
+    }
+  });
+  Object.defineProperty(this, _showRemoveFiles, {
+    writable: true,
+    value: function value() {
+      var _this$state3 = _this.state,
+          action = _this$state3.action,
+          form = _this$state3.form;
+
+      if (action) {
+        form.classList.add('drag-and-drop__remove');
+        form.querySelector('label').innerHTML = 'Удалить файл';
+      }
+    }
+  });
+  Object.defineProperty(this, _unshowRemoveFiles, {
+    writable: true,
+    value: function value() {
+      var _this$state4 = _this.state,
+          action = _this$state4.action,
+          form = _this$state4.form;
+
+      if (action) {
+        form.classList.remove('drag-and-drop__remove');
+        form.querySelector('label').innerHTML = 'Файл Загружен!';
+      }
+    }
+  });
+  this.init(_name, _message, _elem);
+  this.state.el.appendChild(this.state.form);
+
+  _classPrivateFieldLooseBase(this, _createEvents)[_createEvents]();
+};
+
+var _createForm = _classPrivateFieldLooseKey("createForm");
+
+var _createEvents = _classPrivateFieldLooseKey("createEvents");
+
+var _preventDefaults = _classPrivateFieldLooseKey("preventDefaults");
+
+var _highlight = _classPrivateFieldLooseKey("highlight");
+
+var _unhighlight = _classPrivateFieldLooseKey("unhighlight");
+
+var _handleDrop = _classPrivateFieldLooseKey("handleDrop");
+
+var _changeFormForActionInp = _classPrivateFieldLooseKey("changeFormForActionInp");
+
+var _removeFiles = _classPrivateFieldLooseKey("removeFiles");
+
+var _showRemoveFiles = _classPrivateFieldLooseKey("showRemoveFiles");
+
+var _unshowRemoveFiles = _classPrivateFieldLooseKey("unshowRemoveFiles");
