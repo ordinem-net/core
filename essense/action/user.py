@@ -46,15 +46,20 @@ class ActionUser(object):
 
                 # TODO: Нужно по красивее сделать путь к папке (да и вообще не понятно правильно ли я прописал путь)
                 # Кто нибудь помогите с путями!!!
-
-                # Создаём файл
-                hash = self.create_user_dir(transaction["data"]["id"])
-                path_transaction = os.path.join(const.PATH_TO_BCH_USERS, hash, const.PATH_TO_USER_INFO)
-                # path_transaction = const.PATH_TO_BCH_RAW_TRANSACTION + '/' + name_file_transaction +'.json'
-                self.__files___.create_file(path_transaction)
+                if transaction.get("type") == "new_user":
+                    # Создаём файл
+                    hash = self.create_user_dir(transaction["data"]["id"])
+                    path_transaction = os.path.join(const.PATH_TO_BCH_USERS, hash, const.PATH_TO_USER_INFO)
+                    self.__json__.set_json_in_file(path_transaction, transaction["data"])
+                    # path_transaction = const.PATH_TO_BCH_RAW_TRANSACTION + '/' + name_file_transaction +'.json'
+                    # self.__files___.create_file(path_transaction)
+                elif transaction.get("type") == "update":
+                    hash = self.get_dir_user(transaction["data"]["id"])
+                    path_transaction = os.path.join(const.PATH_TO_BCH_USERS, hash, const.PATH_TO_USER_INFO)
+                    self.__json__.set_json_in_file(path_transaction, transaction["data"])
 
                 # Записываем транзакцию в файл
-                self.__json__.set_json_in_file(path_transaction, transaction["data"])
+                #self.__json__.set_json_in_file(path_transaction, transaction["data"])
 
             else:
                 pass
