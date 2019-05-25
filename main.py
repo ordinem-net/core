@@ -6,6 +6,7 @@ from app.sockets import *
 from essense.secondary.decorators import thread
 from essense.secondary.fs.directorys import Directory
 from const import const
+from essense.user import User
 
 
 def client():
@@ -18,7 +19,10 @@ def server():
     for tmp_dir in const.TMP:
         Directory().clear_directory(tmp_dir)
 
-    learner = Learner()
+    user = User()
+    user.server()
+
+    # learner = Learner()
     # learner.start()
 
 

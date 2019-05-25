@@ -5,10 +5,11 @@ import hashlib
 import rsa
 import base64
 import json
+from essense.secondary.decorators import *
 
 
 class Transactions:
-
+    @thread
     def new_transaction(self,type,data):
         """
         Метод для создания транзакции.

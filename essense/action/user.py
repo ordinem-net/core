@@ -26,6 +26,7 @@ class ActionUser(object):
         :param message: <obj> Объект запроса
         :return:
         """
+        print(message)
         type_message = self.__json__.get_prop(message, 'header.type').split('_')
 
         if type_message[0] == 'lerner':

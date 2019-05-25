@@ -1,3 +1,3 @@
 class ConfigApp(object):
-    DEBUG = True
+#    DEBUG = True
     TESTING = True

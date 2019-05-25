@@ -16,7 +16,6 @@ class Network(object):
     @staticmethod
     def __callback_server(message):
         """Дефолтный метод обработки сообщения на сервер"""
-        print(message)
 
     @thread
     def server(self, port=__PORT__, callback=__callback_server, listener=__LISTEN__):
@@ -35,7 +34,7 @@ class Network(object):
         while True:
             sock.listen(listener)
             conn, address = sock.accept()
-            message = conn.recv(1023).decode()
+            message = conn.recv(1023*10).decode()
 
             if callback:
                 callback(message)
